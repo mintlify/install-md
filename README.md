@@ -1,227 +1,140 @@
 ---
 title: "The /install.md file"
 date: 2026-01-10
-description: "A proposal to standardize on using an `/install.md` file to provide human-readable installation instructions that AI agents can execute safely and transparently."
+description: "A proposal to standardise on using an `/install.md` file to provide human-readable installation instructions that AI agents can execute safely and transparently."
 ---
 
 ## Background
 
-Traditional installation scripts are often hundreds of lines of opaque shell commands that users pipe directly to bash without inspection. While convenient, this approach poses serious security risks and makes it difficult to audit what will actually happen on your system.
+Software installation typically relies on shell scripts that users pipe directly to bash without inspection. While convenient, these scripts are often hundreds of lines of opaque commands containing complex conditionals, error handling, and system-specific workarounds that make auditing for malicious behavior extremely difficult.
 
-AI agents like Claude are increasingly capable of understanding natural language instructions and executing complex multi-step operations. However, they still require installation scripts to be executed through shell commands, inheriting the same security and transparency problems.
+AI agents are increasingly capable of understanding natural language instructions and executing complex multi-step operations. By providing installation instructions in human-readable prose rather than shell scripts, we can make software installation both more transparent (easy to audit) and more adaptable (AI agents can handle platform variations intelligently).
 
 ## Proposal
 
 ![install.md logo](logo.png){.lightbox width=150px .floatr}
 
-We propose adding an `/install.md` markdown file to software projects to provide human-readable, AI-executable installation instructions. Instead of piping a shell script to bash, users can pipe an install.md file to an AI agent:
+We propose adding an `/install.md` markdown file to software projects to provide human-readable, AI-executable installation instructions. This file offers clear, sequential instructions that describe what needs to happen rather than prescribing specific shell commands.
+
+install.md is human and AI readable, and uses a simple markdown format that's easy to audit at a glance.
+
+Instead of piping opaque scripts to bash, users could pipe readable markdown to an AI agent:
 
 ```bash
-# Old way (opaque, hard to audit)
-curl -fsSL https://example.com/install | bash
+# Traditional approach (opaque)
+curl -fsSL https://bun.sh/install | bash
 
-# New way (transparent, auditable)
-curl -fsSL https://example.com/install.md | claude
+# install.md approach (transparent)
+curl -fsSL https://bun.sh/install.md | claude
 ```
 
-The install.md file contains plain English instructions that describe what needs to happen, making it easy for both humans and AI agents to understand. Because the instructions are descriptive rather than prescriptive (shell commands), they:
+The [Mintlify documentation platform](https://mintlify.com) includes built-in support for install.md files. For instance, Mintlify-hosted documentation sites automatically provide an install.md file at `/install.md` that contains installation instructions for the documented software.
 
-- Are easier to audit for malicious intent
-- Compress complex logic into concise, readable prose
-- Can adapt to different environments without complex conditionals
-- Remain accessible to non-technical users
+This proposal does not include any particular recommendation for how AI agents should process the install.md file, since it will depend on the application and the capabilities of the agent. The key benefit is transparency - users can read and understand what will happen before it happens, and malicious intent is much harder to hide in plain English than in complex shell scripts.
+
+The versatility of install.md files means they can serve many purposes - from helping developers install command-line tools, to guiding users through complex application setup, or even orchestrating multi-component system installations. They're just as useful for simple single-binary installations as they are for elaborate setups requiring configuration, dependencies, and post-installation verification.
 
 ## Format
 
-The `install.md` file uses standard Markdown with a specific structure to provide clear, actionable installation instructions. The file should be located at `/install.md` in the root of a project's web presence.
+The `install.md` file uses standard Markdown with natural language instructions that describe the installation process. The format prioritizes human readability while remaining unambiguous enough for AI agents to execute reliably.
 
-A well-formed install.md file contains:
+The install.md file spec is for files located at the root path `/install.md` of a project's website. A file following the spec contains the following sections as markdown, in the specific order:
 
-- An H1 with the name of the software being installed
+- An H1 with the name of the software being installed. This is the only required section
 - A blockquote with a brief summary of what the software does
-- Clear, sequential installation instructions written in natural language
-- Information about prerequisites, environment detection, and configuration
-- Post-installation steps and verification instructions
+- Sequential installation instructions written in natural language, organized into paragraphs describing each major step
+- Environment detection guidance (OS, architecture, available tools)
+- Post-installation verification steps
 
-### Example
-
-Here's an example of an install.md file for a hypothetical tool:
+Here is a mock example:
 
 ```markdown
-# Bun
+# Tool Name
 
-> Bun is a fast JavaScript runtime, bundler, test runner, and package manager.
+> Brief description of what the tool does
 
-Install bun for me.
+Install the tool for me.
 
-Detect my OS and CPU architecture, then download the appropriate bun binary zip from GitHub releases (oven-sh/bun). Use the baseline build if my CPU doesn't support AVX2. For Linux, use the musl build if I'm on Alpine. If I'm on an Intel Mac running under Rosetta, get the ARM version instead.
+Detect my operating system and architecture, then download the appropriate
+binary from GitHub releases (username/repo).
 
-Extract the zip to ~/.bun/bin, make the binary executable, and clean up the temp files.
+Extract the archive to ~/.local/bin and make the binary executable.
 
-Update my shell config (.zshrc, .bashrc, .bash_profile, or fish config.fish depending on my shell) to export BUN_INSTALL=~/.bun and add the bin directory to my PATH. Use the correct syntax for my shell.
+Add ~/.local/bin to my PATH if it's not already there.
 
-Try to install shell completions. Tell me what to run to reload my shell config.
+Verify the installation with: toolname --version
 ```
 
-## Advantages
+The key principle is to describe *what* needs to happen, not *how* to do it with specific commands. This allows AI agents to adapt to different environments, handle edge cases intelligently, and use available tools flexibly.
 
-### Security and Auditability
+## Existing standards
 
-Traditional installation scripts can be hundreds of lines of complex shell code. Consider this typical pattern:
+install.md is designed to complement existing installation methods. Traditional installation approaches include shell scripts, package managers, and manual documentation. Each has trade-offs that install.md addresses differently.
 
-```bash
-curl -fsSL https://example.com/install | bash
-```
+Shell scripts (`install.sh`, `curl | bash`) are the most direct parallel to install.md. install.md and shell scripts have different purposes---shell scripts provide explicit commands that execute identically regardless of who runs them, while install.md provides instructions that AI agents interpret and adapt to the specific environment. Our expectation is that install.md will mainly be useful when users want transparency and adaptability, particularly for tools distributed outside package manager ecosystems.
 
-The script being executed might contain:
-- Complex conditionals and error handling
-- Nested function definitions
-- System-specific workarounds
-- Potentially harmful operations hidden in the noise
+Package managers (apt, brew, npm, etc.) remain the preferred installation method when available. This isn't a substitute for install.md since:
 
-With install.md, the same installation becomes:
+- Many tools aren't available in package managers
+- Package managers don't handle custom configuration or multi-step setup
+- Cross-platform installation often requires users to know which package manager to use
+- Some installations require additional steps beyond package installation
+
+## Example
+
+Here's an example of `install.md`, in this case for a hypothetical tool called ripgrep:
 
 ```markdown
-Download the binary for my platform, extract it to ~/.local/bin,
-and add that directory to my PATH.
+# ripgrep
+
+> ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern.
+
+Install ripgrep for me.
+
+Use the most appropriate installation method for my system:
+
+Package manager (recommended):
+- macOS: brew install ripgrep
+- Ubuntu/Debian: sudo apt-get install ripgrep
+- Fedora: sudo dnf install ripgrep
+- Arch: sudo pacman -S ripgrep
+- Windows: choco install ripgrep or scoop install ripgrep
+
+If no package manager is available, download the binary:
+
+Detect my OS and architecture, then download the appropriate archive from GitHub releases (BurntSushi/ripgrep). Look for the latest release.
+
+For Linux: Get the .tar.gz file matching my architecture
+For macOS: Get the .tar.gz file matching my architecture
+For Windows: Get the .zip file
+
+Extract the archive to a temporary directory, then copy the 'rg' binary to a permanent location:
+- Linux/macOS: Copy to ~/.local/bin (create if it doesn't exist)
+- Windows: Copy to %LOCALAPPDATA%\Programs\ripgrep
+
+Make sure the installation directory is in my PATH. Add it if needed.
+
+Clean up the temporary files.
+
+Verify the installation: rg --version
+
+Optional: Install shell completions if my shell supports them. The completions are in the archive under 'complete/' directory.
 ```
 
-This compression of logic into natural language makes intentions immediately clear and malicious behavior much harder to hide.
+To create effective `install.md` files, consider these guidelines:
 
-### Platform Adaptability
+- Use clear, direct language that describes intent
+- Provide fallback options for different scenarios
+- Include environment detection guidance
+- Mention prerequisites and verification steps
+- Keep instructions sequential and organized
 
-Shell scripts must explicitly handle every platform variation:
+## Integrations
 
-```bash
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux specific
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS specific
-    if [[ $(uname -m) == "arm64" ]]; then
-        # Apple Silicon
-    else
-        # Intel Mac
-    fi
-# ... many more cases
-fi
-```
+Various tools and platforms are available to help integrate the install.md specification into your workflow:
 
-An install.md instruction delegates this complexity to the AI agent:
+- [Mintlify](https://mintlify.com) - Documentation platform with built-in install.md support. Mintlify-hosted docs automatically generate and serve install.md files for documented software.
 
-```markdown
-Detect my OS and architecture, then download the appropriate binary.
-```
+## Next steps
 
-### Error Handling and Context
-
-Shell scripts handle errors with explicit checks:
-
-```bash
-if ! command -v curl &> /dev/null; then
-    echo "curl is required but not installed."
-    exit 1
-fi
-```
-
-Natural language instructions let the AI agent apply contextual intelligence:
-
-```markdown
-Download the release archive using curl, wget, or whatever download tool is available.
-```
-
-## Usage with AI Agents
-
-Currently, install.md files can be used with AI assistants by copying the content and asking them to execute the instructions. The vision is to enable direct execution:
-
-```bash
-curl -fsSL https://example.com/install.md | claude
-```
-
-This requires:
-1. A command-line interface for AI agents that can read from stdin
-2. Appropriate safety guards and user confirmation before executing system-modifying operations
-3. Clear output showing what actions are being taken
-
-## Creating Effective install.md Files
-
-When writing an install.md file:
-
-- Use clear, direct language
-- Organize instructions sequentially
-- Specify environment detection needs upfront
-- Include prerequisite checks
-- Describe post-installation verification steps
-- Mention common gotchas or platform-specific considerations
-- Provide fallback options for common failure scenarios
-- Keep the file concise (under 100 lines for most installations)
-
-Avoid:
-- Overly generic instructions that lack necessary detail
-- Assumptions about the user's environment
-- Jargon or unexplained technical terms
-- Instructions that combine too many operations without clear steps
-
-## Comparison with Existing Standards
-
-### vs. Installation Scripts
-
-Traditional shell scripts (`install.sh`) are:
-- Platform-specific and require explicit handling of all edge cases
-- Opaque and difficult to audit without shell scripting expertise
-- Brittle and prone to failure in unexpected environments
-
-install.md files are:
-- Platform-agnostic with intelligence delegated to the AI agent
-- Human-readable and easy to audit for intent
-- Adaptable to various environments through natural language understanding
-
-### vs. Package Managers
-
-Package managers (apt, brew, npm, etc.) are:
-- Excellent for their specific ecosystems
-- Require the package to be published to a registry
-- Handle dependency management and updates
-
-install.md files are:
-- Complementary to package managers (can describe package manager installation)
-- Useful for software not in registries or requiring custom setup
-- Focused on initial installation and setup, not ongoing management
-
-### vs. Documentation
-
-Traditional installation documentation is:
-- Written for human readers to execute manually
-- Often platform-specific with separate sections
-- Can become outdated or inconsistent
-
-install.md files are:
-- Written for AI agents to execute (but readable by humans)
-- Platform-agnostic with conditional logic expressed naturally
-- Single source of truth that's also executable
-
-## Community and Contributions
-
-The install.md specification is open for community input. We welcome:
-
-- Examples of install.md files for popular software
-- Tools and integrations for processing install.md files
-- Improvements to the specification
-- Discussion of best practices and patterns
-
-Visit the [GitHub repository](https://github.com/mintlify/install-md) to contribute or join the conversation.
-
-## Future Directions
-
-As AI agents become more capable and integrated into development workflows, we envision:
-
-- Native support for install.md in AI coding assistants
-- A registry or directory of install.md files for popular software
-- Tools to validate and test install.md files across platforms
-- Integration with package managers and CI/CD pipelines
-- Standardized shebang support (`#!/usr/bin/env claude`) for executable markdown
-
-The goal is to make software installation both more secure (through transparency) and more accessible (through natural language), while maintaining the convenience of automated installation.
-
-## License
-
-This specification and all associated documentation are released under the Apache License 2.0. See [LICENSE](LICENSE) for details.
+The `install.md` specification is open for community input. A [GitHub repository](https://github.com/mintlify/install-md) hosts [this informal overview](https://github.com/mintlify/install-md/blob/main/README.md), allowing for version control and public discussion. A [community discussion board](https://github.com/mintlify/install-md/discussions) is available for sharing implementation experiences and discussing best practices.
