@@ -12,7 +12,7 @@ AI agents are increasingly capable of understanding natural language instruction
 
 ## Proposal
 
-![install.md logo](logo.png){.lightbox width=150px .floatr}
+![install.md logo](logo.png)
 
 We propose adding an `/install.md` markdown file to software projects to provide human-readable, AI-executable installation instructions. This file offers clear, sequential instructions that describe what needs to happen rather than prescribing specific shell commands.
 
