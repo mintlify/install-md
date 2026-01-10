@@ -1,0 +1,292 @@
+---
+title: "Examples"
+description: "Real-world install.md file examples"
+---
+
+## Simple CLI tool
+
+A straightforward installation of a single binary:
+
+```markdown
+# rg (ripgrep)
+
+> ripgrep is a line-oriented search tool that recursively searches your
+> current directory for a regex pattern.
+
+Install ripgrep for me.
+
+Detect my OS and CPU architecture, then download the appropriate archive
+from GitHub releases (BurntSushi/ripgrep). Look for the latest release.
+
+For Linux: download the .tar.gz for my architecture (x86_64, arm, etc.)
+For macOS: download the .tar.gz for my architecture (x86_64 or aarch64)
+For Windows: download the .zip file
+
+Extract the archive to a temporary directory, then copy the 'rg' binary
+to ~/.local/bin (or create that directory if it doesn't exist).
+
+Make sure ~/.local/bin is in my PATH. If not, add it to my shell config.
+
+Clean up the temporary files.
+
+Verify installation with: rg --version
+```
+
+## Language runtime
+
+Installing a programming language runtime with environment setup:
+
+```markdown
+# Deno
+
+> Deno is a modern runtime for JavaScript and TypeScript.
+
+Install Deno for me.
+
+Detect my operating system and download the appropriate installer:
+- For macOS and Linux: Use the shell installer from deno.land
+- For Windows: Use the PowerShell installer
+
+Install Deno to ~/.deno by default, or suggest a different location
+if that directory already exists and contains something else.
+
+Add Deno's bin directory to my PATH by updating my shell configuration:
+- For bash: update ~/.bashrc
+- For zsh: update ~/.zshrc
+- For fish: update ~/.config/fish/config.fish
+- For PowerShell: update PowerShell profile
+
+Tell me to reload my shell or provide the command to add to PATH manually.
+
+Verify with: deno --version
+
+Optional: If I want, also run: deno completions <my-shell> > <completion-path>
+to install shell completions.
+```
+
+## Package with dependencies
+
+A more complex installation requiring prerequisites:
+
+```markdown
+# Docker Desktop
+
+> Docker Desktop is an application for building and sharing containerized
+> applications and microservices.
+
+Install Docker Desktop for me.
+
+First, check if I'm on macOS, Windows, or Linux. Docker Desktop installation
+varies significantly by platform.
+
+For macOS:
+- Check if I have an Intel or Apple Silicon Mac
+- Download the appropriate .dmg from docker.com/products/docker-desktop
+- Open the .dmg and drag Docker to Applications
+- Launch Docker Desktop and wait for it to start
+- If prompted, allow the installation of helper tools (requires sudo)
+
+For Windows:
+- Check if WSL 2 is installed and enabled. If not, help me install it first
+- Download Docker Desktop installer from docker.com
+- Run the installer
+- Restart computer if prompted
+- Launch Docker Desktop and complete the setup
+
+For Linux:
+- Suggest using Docker Engine instead, as Docker Desktop for Linux is less
+  common. Would I prefer Docker Engine?
+- If I really want Docker Desktop: check if I'm on a supported distro
+  (Ubuntu, Debian, Fedora) and follow the Linux-specific installation
+
+After installation:
+- Verify Docker is running: docker --version
+- Test with: docker run hello-world
+- If there are permission issues on Linux, help me add my user to the
+  docker group
+
+Tell me if I need to restart any terminals or shells.
+```
+
+## Development tool with configuration
+
+Installation that includes interactive setup:
+
+```markdown
+# Stripe CLI
+
+> The Stripe CLI helps you build, test, and manage your Stripe integration
+> right from the terminal.
+
+Install the Stripe CLI for me.
+
+Installation method based on my OS:
+
+For macOS: Use Homebrew if available: brew install stripe/stripe-cli/stripe
+Otherwise, download the binary from GitHub releases (stripe/stripe-cli)
+
+For Linux: Use the appropriate package manager:
+- Debian/Ubuntu: Download the .deb and install with dpkg
+- RedHat/CentOS: Download the .rpm and install with rpm
+- Arch: Install from AUR if I use an AUR helper
+- Other: Download binary from GitHub releases
+
+For Windows: Use Scoop: scoop bucket add stripe; scoop install stripe
+Or download the .exe from GitHub releases
+
+If downloading binaries, extract to a directory in my PATH, or add the
+installation directory to PATH.
+
+After installation, verify with: stripe --version
+
+Configuration:
+Ask if I want to authenticate now. If yes, run: stripe login
+This will open a browser to authenticate with Stripe. Follow the prompts.
+
+If I need to use a test mode API key instead: stripe login --api-key <key>
+
+Verify authentication by listing my Stripe resources: stripe customers list
+```
+
+## System service
+
+Installing a service that runs in the background:
+
+```markdown
+# PostgreSQL
+
+> PostgreSQL is a powerful, open source object-relational database system.
+
+Install PostgreSQL for me.
+
+Use the most appropriate method for my operating system:
+
+For macOS:
+- Recommended: Use Homebrew: brew install postgresql@15
+- After installation: brew services start postgresql@15
+- Or start manually: pg_ctl -D /usr/local/var/postgresql@15 start
+
+For Linux:
+- Use the system package manager:
+  - Ubuntu/Debian: sudo apt-get install postgresql postgresql-contrib
+  - Fedora/RHEL: sudo dnf install postgresql-server postgresql-contrib
+  - Arch: sudo pacman -S postgresql
+- Initialize the database cluster if needed (some distros do this automatically)
+- Start the service: sudo systemctl start postgresql
+- Enable at boot: sudo systemctl enable postgresql
+
+For Windows:
+- Download the installer from postgresql.org
+- Run the installer and follow the wizard
+- Note the password I set for the postgres user
+- The service should start automatically
+
+Post-installation:
+- Check PostgreSQL is running: psql --version
+- Try connecting as postgres user: sudo -u postgres psql (Linux/macOS)
+  or use pgAdmin on Windows
+- Create a database for my current user if desired:
+  sudo -u postgres createdb $(whoami)
+
+Tell me the default port (5432) and how to connect.
+```
+
+## Library with build requirements
+
+Installation requiring compilation:
+
+```markdown
+# tree-sitter
+
+> Tree-sitter is a parser generator tool and incremental parsing library.
+
+Install tree-sitter for me.
+
+Check if I want the CLI tool, the library, or both. The CLI is most common
+for general use.
+
+Prerequisites:
+- C compiler (gcc or clang)
+- Node.js 12+ (if I want to use the Node bindings)
+- Rust/Cargo (if I want to install via cargo)
+
+Installation options:
+
+Option 1 - Via NPM (easiest for CLI):
+npm install -g tree-sitter-cli
+
+Option 2 - Via Cargo (if I have Rust):
+cargo install tree-sitter-cli
+
+Option 3 - Build from source:
+- Clone the repository: git clone https://github.com/tree-sitter/tree-sitter
+- cd tree-sitter
+- make
+- sudo make install (or copy the binary to ~/.local/bin)
+
+Option 4 - Package manager:
+- macOS: brew install tree-sitter
+- Linux: Check if available in system repos (may be outdated)
+
+Recommend the best option based on what I have installed.
+
+After installation:
+- Verify with: tree-sitter --version
+- Try parsing a file: tree-sitter parse <filename>
+
+If I want to use tree-sitter in a project, help me set up the language
+grammars I need.
+```
+
+## Minimal installation
+
+The simplest possible install.md:
+
+```markdown
+# jq
+
+> jq is a lightweight command-line JSON processor.
+
+Install jq using my system's package manager:
+- macOS: brew install jq
+- Ubuntu/Debian: sudo apt-get install jq
+- Fedora: sudo dnf install jq
+- Arch: sudo pacman -S jq
+- Windows: choco install jq or scoop install jq
+
+If no package manager is available, download the binary from
+https://jqlang.github.io/jq/download/ and place it somewhere in my PATH.
+
+Verify with: jq --version
+```
+
+## Contributing examples
+
+Have you created an install.md file for your project? We'd love to include it here!
+
+<Card
+  title="Submit your example"
+  icon="github"
+  href="https://github.com/mintlify/install-md"
+>
+  Open a pull request to add your install.md file to this page.
+</Card>
+
+## Next steps
+
+<Columns cols={2}>
+  <Card
+    title="Format specification"
+    icon="file-lines"
+    href="/essentials/format"
+  >
+    Learn the detailed format rules and best practices.
+  </Card>
+  <Card
+    title="Integration guide"
+    icon="plug"
+    href="/essentials/integration"
+  >
+    Integrate install.md support into your AI tools.
+  </Card>
+</Columns>

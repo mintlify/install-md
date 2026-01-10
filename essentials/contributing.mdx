@@ -1,0 +1,266 @@
+---
+title: "Contributing"
+description: "Help improve install.md"
+---
+
+## Ways to contribute
+
+We welcome contributions to the install.md specification and ecosystem. Here are some ways you can help:
+
+### Share examples
+
+Have you created an install.md file for your project? Share it with the community!
+
+<Card title="Submit an example" icon="code">
+Add your install.md file to the [examples page](/essentials/examples) by opening a pull request on GitHub.
+</Card>
+
+### Improve documentation
+
+Help make the specification and guides clearer:
+
+- Fix typos or unclear explanations
+- Add missing examples or use cases
+- Improve the format specification
+- Translate documentation to other languages
+
+### Build integrations
+
+Create tools that support install.md:
+
+- CLI tools for executing install.md files
+- IDE extensions for VS Code, IntelliJ, etc.
+- Browser extensions for one-click installation
+- Package manager integrations
+- Testing frameworks for install.md files
+
+<Card title="Share your integration" icon="plug">
+Let us know about your integration by opening a discussion or pull request.
+</Card>
+
+### Participate in discussions
+
+Join the conversation about the specification:
+
+- Propose improvements to the format
+- Share use cases and patterns
+- Report issues or ambiguities
+- Help answer questions from other users
+
+## Getting started
+
+### Fork and clone
+
+1. Fork the [install-md repository](https://github.com/mintlify/install-md)
+2. Clone your fork:
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/install-md.git
+   cd install-md
+   ```
+
+### Set up development environment
+
+For documentation changes:
+
+1. Install the Mintlify CLI:
+   ```bash
+   npm i -g mint
+   ```
+
+2. Start the development server:
+   ```bash
+   mint dev
+   ```
+
+3. Open http://localhost:3000 to see your changes live
+
+### Make your changes
+
+- Documentation files are in `.mdx` format
+- Examples go in `essentials/examples.mdx`
+- Format specification is in `essentials/format.mdx`
+- Integration guides are in `essentials/integration.mdx`
+
+### Submit a pull request
+
+1. Create a new branch:
+   ```bash
+   git checkout -b your-feature-name
+   ```
+
+2. Make your changes and commit:
+   ```bash
+   git add .
+   git commit -m "Brief description of your changes"
+   ```
+
+3. Push to your fork:
+   ```bash
+   git push origin your-feature-name
+   ```
+
+4. Open a pull request on GitHub
+
+## Contribution guidelines
+
+### Documentation style
+
+- Use clear, concise language
+- Include examples for complex concepts
+- Use Mintlify components (Cards, Columns, etc.) for better UX
+- Test all code examples
+- Keep examples realistic and practical
+
+### Example submissions
+
+When submitting install.md examples:
+
+- Include the full install.md file
+- Add context about what the software does
+- Mention any special considerations
+- Ensure it follows the format specification
+- Test it with an AI agent before submitting
+
+### Code contributions
+
+For integration tools and utilities:
+
+- Include tests
+- Add documentation
+- Follow existing code style
+- Ensure cross-platform compatibility where applicable
+- Include installation and usage instructions
+
+## Specification changes
+
+Proposing changes to the install.md specification requires more discussion:
+
+1. Open a GitHub Discussion first to gauge interest
+2. Explain the problem you're trying to solve
+3. Provide examples of how the change would work
+4. Consider backward compatibility
+5. Wait for community feedback before submitting a PR
+
+### What makes a good specification change
+
+- **Solves a real problem**: Based on actual use cases, not theoretical needs
+- **Maintains simplicity**: Doesn't overcomplicate the format
+- **Backward compatible**: Existing install.md files still work
+- **Clear benefits**: The advantages outweigh the complexity
+- **Implementable**: AI agents can reasonably support it
+
+## Community standards
+
+We're committed to providing a welcoming and inclusive community:
+
+- Be respectful and considerate
+- Welcome newcomers and help them get started
+- Give constructive feedback
+- Focus on what's best for the project
+- Show empathy towards other community members
+
+## Recognition
+
+Contributors will be:
+
+- Credited in the project documentation
+- Mentioned in release notes for significant contributions
+- Added to the contributors list
+- Celebrated in community discussions
+
+## Questions?
+
+<Columns cols={2}>
+  <Card
+    title="GitHub Discussions"
+    icon="comments"
+    href="https://github.com/mintlify/install-md/discussions"
+  >
+    Ask questions and discuss ideas with the community.
+  </Card>
+  <Card
+    title="Issues"
+    icon="circle-exclamation"
+    href="https://github.com/mintlify/install-md/issues"
+  >
+    Report bugs or request features.
+  </Card>
+</Columns>
+
+## Example contributions
+
+Here are examples of great contributions:
+
+### Adding an example
+
+```markdown
+## PostgreSQL
+
+Installing a database server with post-installation setup:
+
+\`\`\`markdown
+# PostgreSQL
+
+> PostgreSQL is a powerful, open source object-relational database system.
+
+Install PostgreSQL for me.
+
+Use the most appropriate method for my operating system:
+
+For macOS:
+- Recommended: Use Homebrew: brew install postgresql@15
+- After installation: brew services start postgresql@15
+
+For Linux:
+- Use the system package manager:
+  - Ubuntu/Debian: sudo apt-get install postgresql
+  - Fedora: sudo dnf install postgresql-server
+...
+\`\`\`
+```
+
+### Improving documentation
+
+```markdown
+Before:
+"Write clear instructions."
+
+After:
+"Write clear instructions that describe what to do, not how to do it.
+Let the AI agent figure out the implementation details for the user's
+specific environment."
+```
+
+### Proposing a format change
+
+```markdown
+**Problem**: install.md files don't have a way to specify version requirements
+
+**Proposal**: Add an optional "Requirements" section after the description
+
+**Example**:
+\`\`\`markdown
+# MyApp
+
+> A tool for doing things
+
+**Requirements**: Python 3.8+, 2GB RAM
+
+Install myapp for me...
+\`\`\`
+
+**Benefits**: Helps users and AI agents verify prerequisites upfront
+**Compatibility**: Existing files without this section continue to work
+```
+
+## Thank you!
+
+Thank you for contributing to install.md! Your help makes software installation more transparent, secure, and accessible for everyone.
+
+<Card
+  title="View all contributors"
+  icon="users"
+  href="https://github.com/mintlify/install-md/graphs/contributors"
+>
+  See everyone who has contributed to the project.
+</Card>

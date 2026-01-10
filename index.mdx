@@ -1,0 +1,125 @@
+---
+title: "install.md"
+description: "Human-readable installation instructions that AI agents can execute"
+---
+
+## What is install.md?
+
+install.md is a proposal to standardize software installation using human-readable markdown files that AI agents can execute safely and transparently.
+
+Instead of piping opaque shell scripts to bash:
+
+```bash
+curl -fsSL https://example.com/install | bash
+```
+
+You can pipe readable markdown to an AI agent:
+
+```bash
+curl -fsSL https://example.com/install.md | claude
+```
+
+## Why install.md?
+
+<Columns cols={2}>
+  <Card
+    title="Auditable"
+    icon="shield-check"
+  >
+    Installation instructions are compressed into concise, human-readable prose that's easy to audit for malicious intent.
+  </Card>
+  <Card
+    title="Platform-agnostic"
+    icon="globe"
+  >
+    Natural language instructions adapt to different platforms without complex conditionals.
+  </Card>
+  <Card
+    title="Transparent"
+    icon="eye"
+  >
+    See exactly what will happen before it happens, no shell scripting expertise required.
+  </Card>
+  <Card
+    title="Intelligent"
+    icon="brain"
+  >
+    AI agents can handle edge cases and environment variations without explicit instructions.
+  </Card>
+</Columns>
+
+## Example
+
+Here's how you might install Bun using install.md:
+
+```markdown
+# Bun
+
+> Bun is a fast JavaScript runtime, bundler, test runner, and package manager.
+
+Install bun for me.
+
+Detect my OS and CPU architecture, then download the appropriate bun binary
+zip from GitHub releases (oven-sh/bun). Use the baseline build if my CPU
+doesn't support AVX2. For Linux, use the musl build if I'm on Alpine.
+
+Extract the zip to ~/.bun/bin, make the binary executable, and clean up
+the temp files.
+
+Update my shell config to export BUN_INSTALL=~/.bun and add the bin
+directory to my PATH. Use the correct syntax for my shell.
+
+Tell me what to run to reload my shell config.
+```
+
+This replaces hundreds of lines of shell script with clear, auditable instructions.
+
+## Get started
+
+<Columns cols={2}>
+  <Card
+    title="Quickstart"
+    icon="rocket"
+    href="/quickstart"
+  >
+    Learn how to create your first install.md file.
+  </Card>
+  <Card
+    title="Format specification"
+    icon="file-lines"
+    href="/essentials/format"
+  >
+    Understand the install.md file format and best practices.
+  </Card>
+  <Card
+    title="Examples"
+    icon="code"
+    href="/essentials/examples"
+  >
+    Browse real-world examples of install.md files.
+  </Card>
+  <Card
+    title="Integration guide"
+    icon="plug"
+    href="/essentials/integration"
+  >
+    Integrate install.md support into your AI tools.
+  </Card>
+</Columns>
+
+## The vision
+
+As AI agents become more capable, we envision a future where:
+
+- Software installation is both secure (through transparency) and convenient (through automation)
+- Installation instructions are auditable by anyone, regardless of technical expertise
+- Platform differences are handled intelligently without complex conditional logic
+- Users can trust what they're installing before they install it
+
+<Card
+  title="Read the full proposal"
+  icon="book-open"
+  href="https://github.com/mintlify/install-md"
+>
+  Learn more about the specification and join the conversation.
+</Card>

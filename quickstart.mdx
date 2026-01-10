@@ -1,0 +1,214 @@
+---
+title: "Quickstart"
+description: "Create your first install.md file in minutes"
+---
+
+## What you'll build
+
+In this guide, you'll create an install.md file for a hypothetical CLI tool called "myapp". By the end, you'll understand the basic structure and how to write clear installation instructions.
+
+## Step 1: Start with the basics
+
+Create a new file called `install.md` and add the title and description:
+
+```markdown
+# MyApp
+
+> MyApp is a command-line tool for managing your tasks and projects.
+```
+
+The title (H1) should be the name of your software, and the blockquote should briefly describe what it does.
+
+<Tip>Keep the description under 200 characters. It should give users enough context to decide if they want to install.</Tip>
+
+## Step 2: Write installation instructions
+
+Add clear, sequential instructions below the description:
+
+```markdown
+# MyApp
+
+> MyApp is a command-line tool for managing your tasks and projects.
+
+Install myapp for me.
+
+Detect my operating system and CPU architecture, then download the
+appropriate binary from GitHub releases (username/myapp).
+
+Extract the downloaded archive to ~/.local/bin and make the binary
+executable.
+
+If ~/.local/bin is not in my PATH, add it to my shell configuration
+file (.bashrc, .zshrc, or equivalent).
+
+Verify the installation by running: myapp --version
+```
+
+<Note>Notice how the instructions describe _what_ to do, not _how_ to do it with specific shell commands. The AI agent will figure out the implementation details.</Note>
+
+## Step 3: Add platform-specific guidance
+
+Help the AI agent handle different platforms:
+
+```markdown
+# MyApp
+
+> MyApp is a command-line tool for managing your tasks and projects.
+
+Install myapp for me.
+
+Detect my operating system and CPU architecture:
+- For Linux: Use the x86_64, aarch64, or armv7 binary
+- For macOS: Use the x86_64 binary for Intel, aarch64 for Apple Silicon
+- For Windows: Use the x86_64.exe binary
+
+Download the appropriate binary from GitHub releases (username/myapp).
+
+Extract the archive to an appropriate location:
+- Linux/macOS: Extract to ~/.local/bin
+- Windows: Extract to %LOCALAPPDATA%\Programs\myapp
+
+Make the binary executable (Linux/macOS only).
+
+Add the installation directory to my PATH if it's not already there:
+- Linux/macOS: Update shell config (.bashrc, .zshrc, fish config.fish, etc.)
+- Windows: Update system PATH environment variable
+
+Verify the installation by running: myapp --version
+```
+
+## Step 4: Test with an AI agent
+
+Test your install.md file by asking an AI agent to execute it:
+
+1. Copy the content of your install.md file
+2. Paste it into Claude Code, Cursor, or another AI coding assistant
+3. Ask: "Please execute these installation instructions"
+4. Review what the agent plans to do before confirming
+
+<Warning>Always review installation instructions before executing them, even when testing!</Warning>
+
+## Step 5: Publish your install.md
+
+Place your install.md file at the root of your project:
+
+```
+your-project/
+├── install.md
+├── README.md
+├── src/
+└── ...
+```
+
+And make it available at `https://your-domain.com/install.md`
+
+<Tip>Consider also adding it to your GitHub repository so users can access it via `https://raw.githubusercontent.com/username/repo/main/install.md`</Tip>
+
+## Complete example
+
+Here's a complete, real-world style install.md file:
+
+```markdown
+# ripgrep
+
+> ripgrep is a line-oriented search tool that recursively searches your
+> current directory for a regex pattern.
+
+Install ripgrep for me.
+
+Use the most appropriate installation method for my system:
+
+Package manager (recommended):
+- macOS: brew install ripgrep
+- Ubuntu/Debian: sudo apt-get install ripgrep
+- Fedora/RHEL: sudo dnf install ripgrep
+- Arch: sudo pacman -S ripgrep
+- Windows: choco install ripgrep or scoop install ripgrep
+
+If no package manager is available, download the binary:
+
+Detect my OS and architecture, then download the appropriate archive
+from GitHub releases (BurntSushi/ripgrep). Look for the latest release.
+
+For Linux: Get the .tar.gz file matching my architecture
+For macOS: Get the .tar.gz file matching my architecture
+For Windows: Get the .zip file
+
+Extract the archive to a temporary directory, then copy the 'rg' binary
+to a permanent location:
+- Linux/macOS: Copy to ~/.local/bin (create if it doesn't exist)
+- Windows: Copy to %LOCALAPPDATA%\Programs\ripgrep
+
+Make sure the installation directory is in my PATH. Add it if needed.
+
+Clean up the temporary files.
+
+Verify the installation: rg --version
+
+Optional: Install shell completions if my shell supports them.
+The completions are in the archive under 'complete/' directory.
+```
+
+## Common patterns
+
+### Simple binary installation
+
+For tools distributed as a single binary:
+
+```markdown
+Download the binary for my platform, extract it to ~/.local/bin,
+make it executable, and add that directory to my PATH if needed.
+```
+
+### Package manager preferred
+
+When a package manager is the best option:
+
+```markdown
+Install using my system's package manager if available (brew, apt, dnf, etc.).
+If no package manager is available, download the binary from releases.
+```
+
+### With dependencies
+
+When prerequisites are required:
+
+```markdown
+First, check if Python 3.8+ is installed. If not, install it using
+my system's package manager or from python.org.
+
+Then install the package using pip: pip install mypackage
+```
+
+### Configuration required
+
+When post-install setup is needed:
+
+```markdown
+After installation, run the setup wizard: myapp init
+
+This will ask for configuration values. Use defaults unless I have
+specific preferences.
+```
+
+## Next steps
+
+<CardGroup cols={2}>
+
+<Card title="Format specification" icon="file-lines" href="/essentials/format">
+  Learn the detailed format rules and best practices.
+</Card>
+
+<Card title="See more examples" icon="code" href="/essentials/examples">
+  Browse real-world install.md files.
+</Card>
+
+<Card title="Integration guide" icon="plug" href="/essentials/integration">
+  Add install.md support to your tools.
+</Card>
+
+<Card title="Contribute" icon="github" href="https://github.com/mintlify/install-md">
+  Help improve the install.md specification.
+</Card>
+
+</CardGroup>

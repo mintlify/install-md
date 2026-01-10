@@ -1,0 +1,313 @@
+---
+title: "Format specification"
+description: "The install.md file format and structure"
+---
+
+## Overview
+
+The `install.md` file uses standard Markdown with a specific structure to provide clear, actionable installation instructions. The file should be located at `/install.md` in the root of a project's web presence.
+
+## Required structure
+
+A well-formed install.md file contains these sections in order:
+
+### 1. Title (H1)
+
+The name of the software being installed:
+
+```markdown
+# Bun
+```
+
+### 2. Summary (Blockquote)
+
+A brief description of what the software does:
+
+```markdown
+> Bun is a fast JavaScript runtime, bundler, test runner, and package manager.
+```
+
+### 3. Installation instructions
+
+Clear, sequential instructions written in natural language. Use paragraphs to organize related steps:
+
+```markdown
+Install bun for me.
+
+Detect my OS and CPU architecture, then download the appropriate bun binary
+zip from GitHub releases (oven-sh/bun). Use the baseline build if my CPU
+doesn't support AVX2. For Linux, use the musl build if I'm on Alpine.
+
+Extract the zip to ~/.bun/bin, make the binary executable, and clean up
+the temp files.
+
+Update my shell config to export BUN_INSTALL=~/.bun and add the bin
+directory to my PATH. Use the correct syntax for my shell.
+
+Tell me what to run to reload my shell config.
+```
+
+## Writing effective instructions
+
+### Be specific but flexible
+
+Instructions should be specific enough to be actionable, but flexible enough for AI agents to adapt:
+
+<Columns cols={2}>
+<div>
+**Good:**
+```markdown
+Download the latest release binary
+for my platform from GitHub releases
+(owner/repo).
+```
+</div>
+<div>
+**Too vague:**
+```markdown
+Get the binary.
+```
+</div>
+</Columns>
+
+### Organize sequentially
+
+Break complex installations into logical steps using paragraphs:
+
+```markdown
+First, check if Python 3.8 or higher is installed. If not, install it
+using my system's package manager.
+
+Next, create a virtual environment in ~/.myapp/venv and activate it.
+
+Install the package using pip: pip install myapp
+
+Finally, add ~/.myapp/venv/bin to my PATH.
+```
+
+### Handle environment detection
+
+Let the AI agent detect the environment rather than using explicit conditionals:
+
+<Columns cols={2}>
+<div>
+**Good:**
+```markdown
+Detect my OS and download the
+appropriate binary (Linux x64,
+macOS ARM, Windows x64, etc.).
+```
+</div>
+<div>
+**Avoid:**
+```markdown
+If Linux, download X.
+If macOS, download Y.
+If Windows, download Z.
+```
+</div>
+</Columns>
+
+### Include prerequisites
+
+Mention what needs to be installed or available:
+
+```markdown
+Make sure curl or wget is available. If neither is installed, install curl
+using my system's package manager.
+
+Check if port 8080 is available. If not, suggest an alternative port.
+```
+
+### Provide fallback options
+
+Give alternatives for common tools or approaches:
+
+```markdown
+Download the archive using curl, wget, or whatever download tool is available.
+
+Install using the system package manager if available (apt, yum, brew, etc.),
+otherwise download the binary directly.
+```
+
+### Verify installation
+
+Include steps to confirm successful installation:
+
+```markdown
+After installation, verify it works by running: myapp --version
+
+If the command isn't found, remind me to reload my shell or provide the
+full path.
+```
+
+## Common patterns
+
+### Binary installation
+
+```markdown
+# MyTool
+
+> MyTool is a command-line utility for managing things.
+
+Install mytool for me.
+
+Detect my OS and CPU architecture, then download the appropriate binary
+from GitHub releases (owner/mytool). Extract it to ~/.local/bin and make
+it executable.
+
+If ~/.local/bin isn't in my PATH, add it to my shell configuration file.
+
+Verify the installation with: mytool --version
+```
+
+### Package manager installation
+
+```markdown
+# MyApp
+
+> MyApp is a development tool for building applications.
+
+Install myapp for me.
+
+Install using my system's package manager:
+- On macOS, use: brew install myapp
+- On Linux, use the appropriate package manager (apt, yum, dnf, pacman)
+- On Windows, use: scoop install myapp or choco install myapp
+
+If no package manager is available, download the binary directly from
+releases and install to a location in my PATH.
+
+Verify with: myapp --version
+```
+
+### Language-specific installation
+
+```markdown
+# MyLibrary
+
+> MyLibrary is a Python package for data processing.
+
+Install mylibrary for me.
+
+First, check that Python 3.8 or higher is installed. If not, install Python
+using my system's package manager or from python.org.
+
+Create a virtual environment if I don't already have one active:
+python -m venv ~/.venvs/mylibrary
+
+Activate the virtual environment using the appropriate command for my shell.
+
+Install the package: pip install mylibrary
+
+Verify it works: python -c "import mylibrary; print(mylibrary.__version__)"
+```
+
+### Complex installation with dependencies
+
+```markdown
+# ComplexApp
+
+> ComplexApp is a service that requires multiple components.
+
+Install complexapp for me.
+
+Prerequisites:
+- Docker (install if not present using my system's method)
+- Node.js 18+ (install using nvm, package manager, or from nodejs.org)
+
+Clone the repository from GitHub (user/complexapp) to ~/complexapp.
+
+Copy the example config file to .env and open it for me to edit with
+appropriate values.
+
+Run the setup script: ./scripts/setup.sh
+
+Start the development server: docker-compose up -d
+
+Verify it's running by checking http://localhost:3000
+```
+
+## Best practices
+
+<Card title="Keep it concise" icon="compress">
+Aim for under 100 lines. If installation is more complex, consider whether it can be simplified.
+</Card>
+
+<Card title="Use natural language" icon="comment">
+Write as if you're explaining to a colleague, not writing code.
+</Card>
+
+<Card title="Be explicit about URLs and paths" icon="link">
+Include repository names, GitHub URLs, and specific paths rather than assuming they're known.
+</Card>
+
+<Card title="Test with AI agents" icon="flask">
+Try your install.md file with Claude or other AI assistants to verify it produces the intended results.
+</Card>
+
+<Card title="Include cleanup steps" icon="broom">
+Mention removing temporary files or archives after extraction.
+</Card>
+
+## What to avoid
+
+- Don't include actual shell commands unless they're meant to be run verbatim
+- Don't use overly technical jargon without explanation
+- Don't assume specific shell (bash, zsh, fish) unless necessary
+- Don't include version numbers unless you want to pin to that specific version
+- Don't combine unrelated operations in a single instruction
+
+## Advanced patterns
+
+### Interactive configuration
+
+```markdown
+After installation, run the configuration wizard: myapp init
+
+This will ask for:
+- API key (I should have this ready)
+- Preferred editor
+- Default project directory
+
+Choose sensible defaults if I just press Enter.
+```
+
+### Conditional features
+
+```markdown
+The tool includes optional GPU acceleration. If I have a CUDA-capable GPU
+and CUDA toolkit installed, enable GPU support during configuration.
+Otherwise, use CPU mode.
+```
+
+### Multiple installation methods
+
+```markdown
+Choose the installation method that works best for my environment:
+
+Option 1 (Recommended): Use the package manager
+Option 2: Install from pre-built binary
+Option 3: Build from source (requires Go 1.21+)
+
+Tell me which option would work best based on what's available.
+```
+
+## Next steps
+
+<Columns cols={2}>
+  <Card
+    title="See examples"
+    icon="code"
+    href="/essentials/examples"
+  >
+    Browse real-world install.md files.
+  </Card>
+  <Card
+    title="Integration guide"
+    icon="plug"
+    href="/essentials/integration"
+  >
+    Learn how to add install.md support to your tools.
+  </Card>
+</Columns>
