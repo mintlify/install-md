@@ -16,7 +16,7 @@ A well-formed install.md file contains these sections in order:
 The name of the software being installed:
 
 ```markdown
-# Bun
+# PostHog
 ```
 
 ### 2. Summary (Blockquote)
@@ -24,7 +24,7 @@ The name of the software being installed:
 A brief description of what the software does:
 
 ```markdown
-> Bun is a fast JavaScript runtime, bundler, test runner, and package manager.
+> PostHog is an open-source product analytics platform that helps you understand user behavior.
 ```
 
 ### 3. Installation instructions
@@ -32,19 +32,30 @@ A brief description of what the software does:
 Clear, sequential instructions written in natural language. Use paragraphs to organize related steps:
 
 ```markdown
-Install bun for me.
+Install PostHog into my project.
 
-Detect my OS and CPU architecture, then download the appropriate bun binary
-zip from GitHub releases (oven-sh/bun). Use the baseline build if my CPU
-doesn't support AVX2. For Linux, use the musl build if I'm on Alpine.
+Detect my project type by examining package.json and the directory structure
+to identify the framework (React, Next.js, Vue, etc.) and whether TypeScript
+is being used.
 
-Extract the zip to ~/.bun/bin, make the binary executable, and clean up
-the temp files.
+Detect which package manager is being used by looking for lock files
+(package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb).
 
-Update my shell config to export BUN_INSTALL=~/.bun and add the bin
-directory to my PATH. Use the correct syntax for my shell.
+Install the PostHog SDK with the appropriate command:
+- npm: npm install posthog-js
+- yarn: yarn add posthog-js
+- pnpm: pnpm add posthog-js
+- bun: bun add posthog-js
 
-Tell me what to run to reload my shell config.
+Identify existing files that should be modified, such as provider files,
+layout files, or app entry points. Prefer modifying existing files over
+creating new ones.
+
+Add PostHog initialization code following the project's existing code style,
+import patterns, and formatting. Configure it to use environment variables
+for the API key and host.
+
+Create or update .env.local with the necessary PostHog configuration values.
 ```
 
 ## Writing effective instructions
@@ -142,6 +153,37 @@ full path.
 ```
 
 ## Common patterns
+
+### SDK/Library integration
+
+```markdown
+# MyAnalytics
+
+> MyAnalytics is an analytics SDK for tracking user behavior.
+
+Install MyAnalytics into my project.
+
+Detect my project framework by examining the repository structure and
+configuration files. Identify if using React, Next.js, Vue, or another
+framework, and whether TypeScript is enabled.
+
+Detect the package manager by checking for lock files (package-lock.json,
+yarn.lock, pnpm-lock.yaml, bun.lockb).
+
+Install the SDK with the appropriate command:
+- npm: npm install myanalytics
+- yarn: yarn add myanalytics
+- pnpm: pnpm add myanalytics
+- bun: bun add myanalytics
+
+Identify existing files to modify (providers, app entry points, layout files).
+Prefer modifying existing files over creating new ones to match project patterns.
+
+Add initialization code following the project's existing code style and import
+patterns. Configure using environment variables for sensitive values.
+
+Verify the integration works by checking for initialization in the console.
+```
 
 ### Binary installation
 

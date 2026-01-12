@@ -82,43 +82,51 @@ Package managers (apt, brew, npm, etc.) remain the preferred installation method
 
 ## Example
 
-Here's an example of `install.md`, in this case for a hypothetical tool called ripgrep:
+Here's an example of `install.md`, in this case for PostHog analytics integration:
 
 ```markdown
-# ripgrep
+# PostHog
 
-> ripgrep is a line-oriented search tool that recursively searches your current directory for a regex pattern.
+> PostHog is an open-source product analytics platform that helps you understand user behavior.
 
-Install ripgrep for me.
+Install PostHog into my project.
 
-Use the most appropriate installation method for my system:
+First, detect my project type by examining the repository structure:
+- Look for package.json, requirements.txt, Gemfile, or other dependency files
+- Identify the framework (React, Next.js, Vue, Django, Rails, etc.)
+- Note the language and whether TypeScript is being used
 
-Package manager (recommended):
-- macOS: brew install ripgrep
-- Ubuntu/Debian: sudo apt-get install ripgrep
-- Fedora: sudo dnf install ripgrep
-- Arch: sudo pacman -S ripgrep
-- Windows: choco install ripgrep or scoop install ripgrep
+Install the appropriate PostHog SDK for my project using the detected package manager:
+- For npm: npm install posthog-js
+- For yarn: yarn add posthog-js
+- For pnpm: pnpm add posthog-js
+- For bun: bun add posthog-js
+- For Python projects: pip install posthog
+- For Ruby projects: gem install posthog-ruby
+- For React Native: npm install posthog-react-native
+- For Node.js backend: npm install posthog-node
 
-If no package manager is available, download the binary:
+Identify which files need modification to integrate PostHog:
+- Look for existing provider files, app entry points, or configuration files
+- For React/Next.js: Find or create a providers file or modify _app.tsx/layout.tsx
+- For other frameworks: Find the main application entry point
+- Create new files only if no appropriate existing file exists
 
-Detect my OS and architecture, then download the appropriate archive from GitHub releases (BurntSushi/ripgrep). Look for the latest release.
+Add PostHog initialization code to the identified files:
+- Initialize the PostHog client with the project API key and host
+- For React: Wrap the app with PostHog provider if needed
+- Follow the existing code style and import patterns of the project
+- Use relative imports if the project structure is unclear
 
-For Linux: Get the .tar.gz file matching my architecture
-For macOS: Get the .tar.gz file matching my architecture
-For Windows: Get the .zip file
+For additional functionality, check if the project needs:
+- User identification tracking (for logged-in users)
+- Custom event tracking
+- Feature flags setup
+- Session replay configuration
 
-Extract the archive to a temporary directory, then copy the 'rg' binary to a permanent location:
-- Linux/macOS: Copy to ~/.local/bin (create if it doesn't exist)
-- Windows: Copy to %LOCALAPPDATA%\Programs\ripgrep
+Preserve existing code formatting and style throughout all modifications.
 
-Make sure the installation directory is in my PATH. Add it if needed.
-
-Clean up the temporary files.
-
-Verify the installation: rg --version
-
-Optional: Install shell completions if my shell supports them. The completions are in the archive under 'complete/' directory.
+Note: The actual API key should be provided by the user or loaded from environment variables. Use placeholder values in configuration examples.
 ```
 
 To create effective `install.md` files, consider these guidelines:

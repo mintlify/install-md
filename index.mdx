@@ -50,29 +50,41 @@ curl -fsSL https://example.com/install.md | claude
 
 ## Example
 
-Here's how you might install Bun using install.md:
+Here's how you might integrate PostHog analytics using install.md:
 
 ```markdown
-# Bun
+# PostHog
 
-> Bun is a fast JavaScript runtime, bundler, test runner, and package manager.
+> PostHog is an open-source product analytics platform that helps you understand user behavior.
 
-Install bun for me.
+Install PostHog into my project.
 
-Detect my OS and CPU architecture, then download the appropriate bun binary
-zip from GitHub releases (oven-sh/bun). Use the baseline build if my CPU
-doesn't support AVX2. For Linux, use the musl build if I'm on Alpine.
+Detect my project type by examining package.json, file structure, and imports
+to identify the framework (React, Next.js, Vue, etc.) and whether TypeScript
+is being used.
 
-Extract the zip to ~/.bun/bin, make the binary executable, and clean up
-the temp files.
+Install the PostHog SDK using the detected package manager:
+- npm: npm install posthog-js
+- yarn: yarn add posthog-js
+- pnpm: pnpm add posthog-js
+- bun: bun add posthog-js
 
-Update my shell config to export BUN_INSTALL=~/.bun and add the bin
-directory to my PATH. Use the correct syntax for my shell.
+Identify which files need modification by looking for existing provider files,
+app entry points, or layout files. For Next.js App Router projects, modify
+layout.tsx. For React apps, find or create a providers file. Follow the
+project's existing file organization patterns.
 
-Tell me what to run to reload my shell config.
+Add PostHog initialization code to the identified files, preserving existing
+code style and import patterns. Initialize the client with API key and host
+configuration from environment variables.
+
+If the project uses TypeScript, ensure proper type imports are included.
+
+Verify the integration by checking that PostHog initializes without errors
+when the application runs.
 ```
 
-This replaces hundreds of lines of shell script with clear, auditable instructions.
+This replaces complex, framework-specific setup scripts with clear, auditable instructions that adapt to your project structure.
 
 ## Get started
 

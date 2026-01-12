@@ -106,89 +106,116 @@ And make it available at `https://your-domain.com/install.md`
 
 ## Complete example
 
-Here's a complete, real-world style install.md file:
+Here's a complete, real-world style install.md file for PostHog integration:
 
 ```markdown
-# ripgrep
+# PostHog
 
-> ripgrep is a line-oriented search tool that recursively searches your
-> current directory for a regex pattern.
+> PostHog is an open-source product analytics platform that helps you
+> understand user behavior.
 
-Install ripgrep for me.
+Install PostHog into my project.
 
-Use the most appropriate installation method for my system:
+First, detect my project type by examining the repository:
+- Look for package.json to identify JavaScript/TypeScript projects
+- Check for framework-specific files (next.config.js, vite.config.ts, etc.)
+- Identify if this is React, Next.js, Vue, Nuxt, or another framework
+- Note whether the project uses TypeScript
 
-Package manager (recommended):
-- macOS: brew install ripgrep
-- Ubuntu/Debian: sudo apt-get install ripgrep
-- Fedora/RHEL: sudo dnf install ripgrep
-- Arch: sudo pacman -S ripgrep
-- Windows: choco install ripgrep or scoop install ripgrep
+Install the PostHog SDK using the project's detected package manager:
+- For npm: npm install posthog-js
+- For yarn: yarn add posthog-js
+- For pnpm: pnpm add posthog-js
+- For bun: bun add posthog-js
+(posthog-js works for Next.js, React, and Vue projects)
 
-If no package manager is available, download the binary:
+For Next.js projects specifically:
+- Determine if using App Router (app/ directory) or Pages Router (pages/ directory)
+- App Router: Look for app/layout.tsx or app/layout.js
+- Pages Router: Look for pages/_app.tsx or pages/_app.js
 
-Detect my OS and architecture, then download the appropriate archive
-from GitHub releases (BurntSushi/ripgrep). Look for the latest release.
+Identify files that need modification:
+- Check for existing provider files (providers.tsx, providers.js)
+- Look for component directories that might contain provider components
+- For React apps: Find src/App.tsx or src/index.tsx
+- Create new provider files only if no suitable existing file exists
 
-For Linux: Get the .tar.gz file matching my architecture
-For macOS: Get the .tar.gz file matching my architecture
-For Windows: Get the .zip file
+Add PostHog initialization code:
+- Import PostHog at the top of the identified file
+- Initialize PostHog client with configuration from environment variables
+- For React: Create or modify PostHogProvider component if needed
+- For Next.js App Router: Add PostHog provider to layout component
+- Follow the project's existing code style, import patterns, and formatting
 
-Extract the archive to a temporary directory, then copy the 'rg' binary
-to a permanent location:
-- Linux/macOS: Copy to ~/.local/bin (create if it doesn't exist)
-- Windows: Copy to %LOCALAPPDATA%\Programs\ripgrep
+Add environment variables:
+- Create or update .env.local with NEXT_PUBLIC_POSTHOG_KEY and NEXT_PUBLIC_POSTHOG_HOST
+- Use placeholder values or prompt for actual keys
+- Add .env.local to .gitignore if not already present
 
-Make sure the installation directory is in my PATH. Add it if needed.
+Verify the integration:
+- Check that PostHog initializes without errors in the browser console
+- Ensure no TypeScript errors are present if using TypeScript
 
-Clean up the temporary files.
-
-Verify the installation: rg --version
-
-Optional: Install shell completions if my shell supports them.
-The completions are in the archive under 'complete/' directory.
+Optional enhancements:
+- Add user identification for authenticated users
+- Set up custom event tracking for key user actions
+- Enable session replay if desired
+- Configure feature flags integration
 ```
 
 ## Common patterns
 
-### Simple binary installation
+### SDK/Library integration
 
-For tools distributed as a single binary:
+For integrating analytics, monitoring, or other SDKs:
 
 ```markdown
-Download the binary for my platform, extract it to ~/.local/bin,
-make it executable, and add that directory to my PATH if needed.
+Detect my project framework and install the appropriate SDK package.
+Identify existing initialization files (providers, app entry points, config files).
+Add initialization code following the project's existing patterns.
+Configure with environment variables for API keys and settings.
 ```
 
-### Package manager preferred
+### Framework-specific setup
 
-When a package manager is the best option:
+When different frameworks need different approaches:
 
 ```markdown
-Install using my system's package manager if available (brew, apt, dnf, etc.).
-If no package manager is available, download the binary from releases.
+Detect the framework by examining the project structure:
+- Next.js: Check for app/ or pages/ directory
+- React: Look for src/App.tsx or src/index.tsx
+- Vue: Look for src/main.ts or app.vue
+
+Install the SDK and modify the appropriate framework entry point.
+Follow framework-specific patterns for providers or plugins.
 ```
 
-### With dependencies
+### Code modification patterns
 
-When prerequisites are required:
+When files need to be modified in place:
 
 ```markdown
-First, check if Python 3.8+ is installed. If not, install it using
-my system's package manager or from python.org.
+Identify files that need modification by looking for existing patterns
+(providers, hooks, components, etc.)
 
-Then install the package using pip: pip install mypackage
+Preserve the existing code style, formatting, and import patterns.
+Add new functionality alongside existing code rather than replacing it.
+Create new files only if no appropriate existing file can be modified.
 ```
 
-### Configuration required
+### Multi-file integration
 
-When post-install setup is needed:
+When setup requires coordinating changes across files:
 
 ```markdown
-After installation, run the setup wizard: myapp init
+First identify all files that need modification:
+- Configuration files for API keys
+- Provider files for initialization
+- Type definition files if using TypeScript
+- Environment variable files
 
-This will ask for configuration values. Use defaults unless I have
-specific preferences.
+Make changes in order, ensuring each file references the others correctly
+using the project's existing import patterns.
 ```
 
 ## Next steps

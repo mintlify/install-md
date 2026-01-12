@@ -3,33 +3,58 @@ title: "Examples"
 description: "Real-world install.md file examples"
 ---
 
-## Simple CLI tool
+## SDK Integration
 
-A straightforward installation of a single binary:
+Integrating an SDK into an existing codebase:
 
 ```markdown
-# rg (ripgrep)
+# PostHog
 
-> ripgrep is a line-oriented search tool that recursively searches your
-> current directory for a regex pattern.
+> PostHog is an open-source product analytics platform that helps you
+> understand user behavior.
 
-Install ripgrep for me.
+Install PostHog into my project.
 
-Detect my OS and CPU architecture, then download the appropriate archive
-from GitHub releases (BurntSushi/ripgrep). Look for the latest release.
+First, detect my project type by examining the repository structure:
+- Look for package.json, next.config.js, or other framework config files
+- Identify if this is React, Next.js, Vue, or another framework
+- Check if the project uses TypeScript by looking for tsconfig.json
 
-For Linux: download the .tar.gz for my architecture (x86_64, arm, etc.)
-For macOS: download the .tar.gz for my architecture (x86_64 or aarch64)
-For Windows: download the .zip file
+Detect the package manager being used (check for package-lock.json, yarn.lock,
+pnpm-lock.yaml, or bun.lockb).
 
-Extract the archive to a temporary directory, then copy the 'rg' binary
-to ~/.local/bin (or create that directory if it doesn't exist).
+Install the PostHog SDK using the detected package manager:
+- For npm: npm install posthog-js
+- For yarn: yarn add posthog-js
+- For pnpm: pnpm add posthog-js
+- For bun: bun add posthog-js
 
-Make sure ~/.local/bin is in my PATH. If not, add it to my shell config.
+For Next.js projects:
+- Detect if using App Router (app/ directory) or Pages Router (pages/ directory)
+- App Router: Look for app/layout.tsx to modify
+- Pages Router: Look for pages/_app.tsx to modify
 
-Clean up the temporary files.
+Identify existing files that should be modified:
+- Check for provider files (providers.tsx, context/, etc.)
+- Look for app initialization files
+- Prefer modifying existing files over creating new ones
 
-Verify installation with: rg --version
+Add PostHog initialization code:
+- Import posthog-js at the top of the file
+- Initialize PostHog with API key from environment variables
+- For React: Wrap the application with PostHogProvider if needed
+- Follow the existing code style and formatting patterns
+
+Create or update .env.local with:
+- NEXT_PUBLIC_POSTHOG_KEY=<placeholder>
+- NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+
+Add .env.local to .gitignore if not already present.
+
+Verify the integration by checking the browser console for PostHog
+initialization messages when running the development server.
+
+Preserve all existing code formatting, style, and import patterns throughout.
 ```
 
 ## Language runtime
