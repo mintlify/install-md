@@ -1,160 +1,179 @@
 ---
 title: "Quickstart"
-description: "Create your first install.md file"
+description: "Create your first install.md file in minutes"
 ---
 
-## Example
+## What you'll build
 
-Here's Firecrawl's install.md ([docs.firecrawl.dev/install.md](https://docs.firecrawl.dev/install.md)):
+In this guide, you'll create an install.md file for a hypothetical CLI tool called "myapp". By the end, you'll understand the structure and how to write task-oriented installation instructions.
 
-`````markdown
-# firecrawl
+## Step 1: Start with the basics
 
-> Documentation and setup instructions for firecrawl
+Create a new file called `install.md` and add the title, description, and opening command:
 
-I want you to install Firecrawl for me. Execute all the steps below autonomously.
+```markdown
+# myapp
 
-OBJECTIVE: Install the Firecrawl SDK and verify it works by scraping a webpage.
+> MyApp is a command-line tool for managing your tasks and projects.
 
-DONE WHEN: You have successfully scraped a URL and received markdown content back from the Firecrawl API.
+I want you to install MyApp for me. Execute all the steps below autonomously.
+```
+
+The title (H1) should be lowercase and hyphenated. The blockquote briefly describes what it does. The opening line signals this is a command, not documentation.
+
+## Step 2: Define success criteria
+
+Add OBJECTIVE and DONE WHEN to specify exactly what success looks like:
+
+```markdown
+# myapp
+
+> MyApp is a command-line tool for managing your tasks and projects.
+
+I want you to install MyApp for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Install the MyApp CLI and verify it works.
+
+DONE WHEN: Running `myapp --version` outputs the version number.
+```
+
+<Tip>DONE WHEN should be specific and measurable—something the agent can verify.</Tip>
+
+## Step 3: Add the TODO checklist
+
+Give the agent a clear task list with markdown checkboxes:
+
+```markdown
+# myapp
+
+> MyApp is a command-line tool for managing your tasks and projects.
+
+I want you to install MyApp for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Install the MyApp CLI and verify it works.
+
+DONE WHEN: Running `myapp --version` outputs the version number.
 
 ## TODO
 
-- [ ] Install the Firecrawl SDK (Python or Node)
-- [ ] Set up the API key as an environment variable
-- [ ] Create a test script that scrapes a webpage
-- [ ] Run the script and verify markdown output is returned
+- [ ] Download the appropriate binary for my OS and architecture
+- [ ] Install to ~/.local/bin (or equivalent)
+- [ ] Add to PATH if needed
+- [ ] Verify installation with myapp --version
+```
 
-## Installation
+## Step 4: Write detailed instructions
 
-You need to install the Firecrawl SDK. Choose Python or Node based on your project:
+Expand each TODO item with explicit commands. Use task language ("You need to...", "You must..."):
 
-**Python:**
+```markdown
+## Download the binary
+
+You need to detect the operating system and download the appropriate binary:
+
+**macOS:**
 ```bash
-pip install firecrawl-py
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwin-arm64 -o myapp
 ```
 
-**Node:**
+**Linux:**
 ```bash
-npm install @mendable/firecrawl-js
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
 ```
 
-## API Key Setup
+## Install to PATH
 
-You must set your Firecrawl API key as an environment variable. The API key is required for all requests.
+You must make the binary executable and move it to a directory in PATH:
 
-**On macOS/Linux:**
 ```bash
-export FIRECRAWL_API_KEY="fc-YOUR-API-KEY"
+chmod +x myapp
+mv myapp ~/.local/bin/
 ```
 
-**On Windows:**
-```powershell
-$env:FIRECRAWL_API_KEY="fc-YOUR-API-KEY"
-```
+If `~/.local/bin` is not in PATH, add it to your shell configuration.
 
-Note: You need to obtain an API key from https://firecrawl.dev/app/api-keys before proceeding.
+## Verify installation
 
-## Create Test Script
+You must confirm the installation succeeded:
 
-Your task is to create a test script that scrapes a webpage and outputs the result.
-
-**Python - create `test_firecrawl.py`:**
-```python
-import os
-from firecrawl import Firecrawl
-
-firecrawl = Firecrawl(api_key=os.environ.get("FIRECRAWL_API_KEY"))
-
-# Scrape a website
-doc = firecrawl.scrape("https://firecrawl.dev", formats=["markdown"])
-print(doc)
-```
-
-**Node - create `test_firecrawl.js`:**
-```javascript
-import Firecrawl from '@mendable/firecrawl-js';
-
-const firecrawl = new Firecrawl({ apiKey: process.env.FIRECRAWL_API_KEY });
-
-const doc = await firecrawl.scrape('https://firecrawl.dev', { formats: ['markdown'] });
-console.log(doc);
-```
-
-## Run the Test
-
-You must execute the test script to verify the installation works:
-
-**Python:**
 ```bash
-python test_firecrawl.py
+myapp --version
+```
 ```
 
-**Node:**
-```bash
-node test_firecrawl.js
-```
+## Step 5: Add the closing directive
 
-The response should contain a `markdown` field with the scraped content and a `metadata` object with page information.
+End with EXECUTE NOW and an optional llms.txt reference:
 
-## Additional Features
-
-Once installation is verified, you can use these additional capabilities:
-
-**Crawl entire websites:**
-```python
-docs = firecrawl.crawl(url="https://docs.firecrawl.dev", limit=10)
-```
-
-**Search the web:**
-```python
-results = firecrawl.search(query="firecrawl", limit=3)
-```
-
-**Extract structured data with JSON mode:**
-```python
-from pydantic import BaseModel
-
-class CompanyInfo(BaseModel):
-    company_mission: str
-    is_open_source: bool
-
-result = firecrawl.scrape(
-    'https://firecrawl.dev',
-    formats=[{"type": "json", "schema": CompanyInfo.model_json_schema()}]
-)
-```
-
-## MCP Integration (Optional)
-
-If you're using Claude Code, Cursor, or Windsurf, you can add Firecrawl as an MCP server:
-
-**Claude Code:**
-```bash
-claude mcp add firecrawl -e FIRECRAWL_API_KEY=your-api-key -- npx -y firecrawl-mcp
-```
-
-**Cursor - add to MCP settings:**
-```json
-{
-  "mcpServers": {
-    "firecrawl": {
-      "command": "npx",
-      "args": ["-y", "firecrawl-mcp"],
-      "env": {
-        "FIRECRAWL_API_KEY": "your_api_key_here"
-      }
-    }
-  }
-}
-```
-
-EXECUTE NOW: Complete the above TODO list to achieve: Successfully scraped a URL and received markdown content back from the Firecrawl API.
+```markdown
+EXECUTE NOW: Complete the above TODO list to achieve: Running `myapp --version` outputs the version number.
 
 ---
 
-> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://docs.firecrawl.dev/llms.txt
-`````
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://example.com/llms.txt
+```
+
+## Complete example
+
+Here's the full install.md:
+
+```markdown
+# myapp
+
+> MyApp is a command-line tool for managing your tasks and projects.
+
+I want you to install MyApp for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Install the MyApp CLI and verify it works.
+
+DONE WHEN: Running `myapp --version` outputs the version number.
+
+## TODO
+
+- [ ] Download the appropriate binary for my OS and architecture
+- [ ] Install to ~/.local/bin (or equivalent)
+- [ ] Add to PATH if needed
+- [ ] Verify installation with myapp --version
+
+## Download the binary
+
+You need to detect the operating system and download the appropriate binary:
+
+**macOS:**
+```bash
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwin-arm64 -o myapp
+```
+
+**Linux:**
+```bash
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
+```
+
+## Install to PATH
+
+You must make the binary executable and move it to a directory in PATH:
+
+```bash
+chmod +x myapp
+mv myapp ~/.local/bin/
+```
+
+If `~/.local/bin` is not in PATH, add it to your shell configuration.
+
+## Verify installation
+
+You must confirm the installation succeeded:
+
+```bash
+myapp --version
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Running `myapp --version` outputs the version number.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://example.com/llms.txt
+```
 
 ## Test it
 
@@ -173,25 +192,20 @@ If you use [Mintlify](https://mintlify.com) for documentation, install.md is gen
 
 ### Manual hosting
 
-For non-Mintlify sites, create an `install.md` file and serve it at the root of your documentation or project website:
+For non-Mintlify sites, create an `install.md` file and serve it at the root of your documentation:
 
 ```
 https://your-domain.com/install.md
 https://docs.your-domain.com/install.md
-https://your-domain.com/docs/install.md
 ```
 
-**Static sites (GitHub Pages, Netlify, Vercel):** Place `install.md` in your public/static directory.
+**Static sites:** Place `install.md` in your public/static directory.
 
-**Custom servers:** Add a route that serves the markdown file with `Content-Type: text/markdown` or `text/plain`.
-
-**GitHub repositories:** You can also host install.md in your repository root. Users can access it via raw.githubusercontent.com:
+**GitHub repositories:** Host in your repo root and access via raw.githubusercontent.com:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/your-org/your-repo/main/install.md | claude
 ```
-
-The key requirement is that users and agents can fetch the file via a simple URL.
 
 ## Next steps
 
