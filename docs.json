@@ -53,8 +53,8 @@
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/install-md-logo-dark.svg",
+    "dark": "/logo/install-md-logo-light.svg"
   },
   "navbar": {
     "links": [
