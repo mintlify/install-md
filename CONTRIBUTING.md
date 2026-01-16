@@ -5,7 +5,6 @@ Thank you for your interest in contributing to the install.md specification!
 ## Quick Links
 
 - [Full contribution guide](https://www.installmd.org/essentials/contributing)
-- [GitHub Discussions](https://github.com/mintlify/install-md/discussions)
 - [Issues](https://github.com/mintlify/install-md/issues)
 
 ## Ways to Contribute
@@ -27,12 +26,6 @@ Create tools that support install.md:
 - IDE extensions
 - Browser extensions
 - Package manager integrations
-
-### Join the Discussion
-
-- Propose improvements to the format
-- Share use cases and patterns
-- Help answer questions from other users
 
 ## Getting Started
 
@@ -61,7 +54,6 @@ Documentation files are in `.mdx` format:
 
 ## Questions?
 
-- [GitHub Discussions](https://github.com/mintlify/install-md/discussions) for questions and ideas
 - [Issues](https://github.com/mintlify/install-md/issues) for bugs and feature requests
 
 ## License

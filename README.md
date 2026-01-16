@@ -179,7 +179,6 @@ install.md is useful for complex installations, SDK integrations that modify cod
 
 - [Full documentation](https://installmd.org) - Format specification, examples, and guides
 - [Skills for AI tools](https://installmd.org/essentials/skills) - Generate install.md files in Claude Code, Cursor, and Windsurf
-- [GitHub Discussions](https://github.com/mintlify/install-md/discussions) - Share experiences and discuss best practices
 
 ## Contributing
 
