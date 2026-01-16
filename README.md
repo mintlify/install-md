@@ -50,98 +50,15 @@ The `install.md` file uses standard Markdown with a required structure designed 
 
 Use task language throughout: "You need to...", "You must...", "Your task is to..."
 
-### Example
+### Examples
 
-Here's an install.md file for Resend (see the [docs](https://installmd.org/essentials/examples) for Firecrawl, Trigger.dev, Browserbase, and Mintlify examples):
+Live install.md files from production documentation:
 
-`````markdown
-# resend
-
-> Documentation and setup instructions for resend
-
-I want you to install Resend for me. Execute all the steps below autonomously.
-
-OBJECTIVE: Set up Resend email API integration with a working email-sending capability.
-
-DONE WHEN: You can successfully send a test email using the Resend API and receive a successful response with an email ID.
-
-## TODO
-
-- [ ] Install the Resend SDK
-- [ ] Set up API key configuration
-- [ ] Create a test email script
-- [ ] Send a test email and verify the response
-
-## Install the SDK
-
-You need to install the Resend SDK for your project:
-
-```bash
-npm install resend
-```
-
-Or with other package managers:
-
-```bash
-# yarn
-yarn add resend
-
-# pnpm
-pnpm add resend
-
-# Python
-pip install resend
-```
-
-## Configure API Key
-
-You must set your API key as an environment variable:
-
-```bash
-export RESEND_API_KEY="re_xxxxxxxxx"
-```
-
-Note: Obtain an API key from https://resend.com/api-keys before proceeding.
-
-## Create Test Script
-
-Your task is to create a test script. Create `send-email.js`:
-
-```javascript
-import { Resend } from 'resend';
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const { data, error } = await resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: ['delivered@resend.dev'],
-  subject: 'Hello World',
-  html: '<strong>It works!</strong>',
-});
-
-if (error) {
-  console.error('Error:', error);
-} else {
-  console.log('Email sent! ID:', data.id);
-}
-```
-
-## Send Test Email
-
-You must execute the test script:
-
-```bash
-node send-email.js
-```
-
-A successful response returns an email ID.
-
-EXECUTE NOW: Complete the above TODO list to achieve: Successfully send a test email using the Resend API and receive a successful response with an email ID.
-
----
-
-> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://resend.com/docs/llms.txt
-`````
+- [Firecrawl](https://docs.firecrawl.dev/install.md) - Web scraping API for LLMs
+- [Mintlify](https://mintlify.com/docs/install.md) - Documentation platform
+- [Trigger.dev](https://trigger.dev/docs/install.md) - Background jobs framework
+- [Browserbase](https://docs.browserbase.com/install.md) - Browser automation platform
+- [Resend](https://resend.com/docs/install.md) - Email API
 
 ## What to Include
 
