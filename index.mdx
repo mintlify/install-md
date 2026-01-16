@@ -1,94 +1,238 @@
 ---
 title: "install.md"
-description: "Human-readable installation instructions that AI agents can execute"
+description: "Task-oriented installation instructions that AI agents execute autonomously"
 ---
 
 ## What is install.md?
 
-install.md is a proposal to standardize software installation using human-readable markdown files that AI agents can execute safely and transparently.
+install.md is a proposal to standardize software installation using task-oriented markdown files that AI agents execute autonomously.
 
-Instead of piping opaque shell scripts to bash:
+When you ask an AI agent to install software today, you have no idea what context it receives—it might search the web, find outdated docs, or hallucinate commands. With install.md, developers define exactly what instructions the agent gets.
 
-```bash
-curl -fsSL https://example.com/install | bash
-```
-
-You can pipe readable markdown to an AI agent:
+install.md files are **direct commands**, not just documentation. The format is structured to trigger immediate autonomous execution.
 
 ```bash
+# Pipe directly to an AI agent
 curl -fsSL https://example.com/install.md | claude
+
+# Or paste into any coding assistant like Claude Code or Cursor
 ```
+
+This works for any software—developer tools, CLIs, desktop applications, system utilities, or complex multi-component setups.
 
 ## Why install.md?
 
-<Columns cols={2}>
+<CardGroup cols={2}>
   <Card
-    title="Auditable"
-    icon="shield-check"
+    title="Verifiable"
+    icon="check-double"
   >
-    Installation instructions are compressed into concise, human-readable prose that's easy to audit for malicious intent.
+    Developers and users know exactly what context the AI agent receives. Test it yourself, iterate on it, trust it.
   </Card>
   <Card
-    title="Platform-agnostic"
-    icon="globe"
+    title="Adaptable"
+    icon="arrows-spin"
   >
-    Natural language instructions adapt to different platforms without complex conditionals.
+    AI agents adapt instructions to your environment—detecting your OS, package manager, project structure, and more.
   </Card>
   <Card
-    title="Transparent"
+    title="Verifies success"
+    icon="badge-check"
+  >
+    install.md files include success criteria so the agent knows when installation is complete and working.
+  </Card>
+  <Card
+    title="Human-readable"
     icon="eye"
   >
-    See exactly what will happen before it happens, no shell scripting expertise required.
+    See exactly what will happen before it happens. Modify the instructions yourself if needed.
   </Card>
-  <Card
-    title="Intelligent"
-    icon="brain"
-  >
-    AI agents can handle edge cases and environment variations without explicit instructions.
-  </Card>
-</Columns>
+</CardGroup>
 
-## Example
+## Advantages
 
-Here's how you might integrate PostHog analytics using install.md:
+### For developers shipping software
 
-```markdown
-# PostHog
+You define installation once and it adapts to every environment. Encode edge cases and troubleshooting knowledge without cluttering your main documentation. You control exactly what context the LLM receives, and installation instructions for agents can differ from your public docs. You're writing directly to your actual users—which increasingly are agents.
 
-> PostHog is an open-source product analytics platform that helps you understand user behavior.
+### For users installing software
 
-Install PostHog into my project.
+A single command installs your software, or paste the file into any LLM. The instructions are human-readable so you can review every step before it executes. The LLM adapts to your specific environment automatically. Because the file is fetched at runtime, you never deal with stale data or depend on the LLM's outdated knowledge.
 
-Detect my project type by examining package.json, file structure, and imports
-to identify the framework (React, Next.js, Vue, etc.) and whether TypeScript
-is being used.
+### For agents
 
-Install the PostHog SDK using the detected package manager:
-- npm: npm install posthog-js
-- yarn: yarn add posthog-js
-- pnpm: pnpm add posthog-js
-- bun: bun add posthog-js
+Installation instructions live in a predictable location that's easy to find. The structured format provides clear success criteria for determining when installation is complete. The file is markdown, not HTML—clean input for the model.
 
-Identify which files need modification by looking for existing provider files,
-app entry points, or layout files. For Next.js App Router projects, modify
-layout.tsx. For React apps, find or create a providers file. Follow the
-project's existing file organization patterns.
+<Accordion title="Example: Firecrawl install.md" defaultOpen>
 
-Add PostHog initialization code to the identified files, preserving existing
-code style and import patterns. Initialize the client with API key and host
-configuration from environment variables.
+Here's a real install.md file for Firecrawl, a web scraping API:
 
-If the project uses TypeScript, ensure proper type imports are included.
+`````markdown
+# firecrawl
 
-Verify the integration by checking that PostHog initializes without errors
-when the application runs.
+> Documentation and setup instructions for firecrawl
+
+I want you to install Firecrawl for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Install the Firecrawl SDK and verify it works by scraping a webpage.
+
+DONE WHEN: You have successfully scraped a URL and received markdown content back from the Firecrawl API.
+
+## TODO
+
+- [ ] Install the Firecrawl SDK (Python or Node)
+- [ ] Set up the API key as an environment variable
+- [ ] Create a test script that scrapes a webpage
+- [ ] Run the script and verify markdown output is returned
+
+## Installation
+
+You need to install the Firecrawl SDK. Choose Python or Node based on your project:
+
+**Python:**
+```bash
+pip install firecrawl-py
 ```
 
-This replaces complex, framework-specific setup scripts with clear, auditable instructions that adapt to your project structure.
+**Node:**
+```bash
+npm install @mendable/firecrawl-js
+```
+
+## API Key Setup
+
+You must set your Firecrawl API key as an environment variable. The API key is required for all requests.
+
+**On macOS/Linux:**
+```bash
+export FIRECRAWL_API_KEY="fc-YOUR-API-KEY"
+```
+
+**On Windows:**
+```powershell
+$env:FIRECRAWL_API_KEY="fc-YOUR-API-KEY"
+```
+
+Note: You need to obtain an API key from https://firecrawl.dev/app/api-keys before proceeding.
+
+## Create Test Script
+
+Your task is to create a test script that scrapes a webpage and outputs the result.
+
+**Python - create `test_firecrawl.py`:**
+```python
+import os
+from firecrawl import Firecrawl
+
+firecrawl = Firecrawl(api_key=os.environ.get("FIRECRAWL_API_KEY"))
+
+# Scrape a website
+doc = firecrawl.scrape("https://firecrawl.dev", formats=["markdown"])
+print(doc)
+```
+
+**Node - create `test_firecrawl.js`:**
+```javascript
+import Firecrawl from '@mendable/firecrawl-js';
+
+const firecrawl = new Firecrawl({ apiKey: process.env.FIRECRAWL_API_KEY });
+
+const doc = await firecrawl.scrape('https://firecrawl.dev', { formats: ['markdown'] });
+console.log(doc);
+```
+
+## Run the Test
+
+You must execute the test script to verify the installation works:
+
+**Python:**
+```bash
+python test_firecrawl.py
+```
+
+**Node:**
+```bash
+node test_firecrawl.js
+```
+
+The response should contain a `markdown` field with the scraped content and a `metadata` object with page information.
+
+## Additional Features
+
+Once installation is verified, you can use these additional capabilities:
+
+**Crawl entire websites:**
+```python
+docs = firecrawl.crawl(url="https://docs.firecrawl.dev", limit=10)
+```
+
+**Search the web:**
+```python
+results = firecrawl.search(query="firecrawl", limit=3)
+```
+
+**Extract structured data with JSON mode:**
+```python
+from pydantic import BaseModel
+
+class CompanyInfo(BaseModel):
+    company_mission: str
+    is_open_source: bool
+
+result = firecrawl.scrape(
+    'https://firecrawl.dev',
+    formats=[{"type": "json", "schema": CompanyInfo.model_json_schema()}]
+)
+```
+
+## MCP Integration (Optional)
+
+If you're using Claude Code, Cursor, or Windsurf, you can add Firecrawl as an MCP server:
+
+**Claude Code:**
+```bash
+claude mcp add firecrawl -e FIRECRAWL_API_KEY=your-api-key -- npx -y firecrawl-mcp
+```
+
+**Cursor - add to MCP settings:**
+```json
+{
+  "mcpServers": {
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Successfully scraped a URL and received markdown content back from the Firecrawl API.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://docs.firecrawl.dev/llms.txt
+`````
+
+</Accordion>
+
+## Relationship to llms.txt
+
+install.md works naturally with [llms.txt](https://llmstxt.org/). While llms.txt helps LLMs understand your software broadly, install.md tells them specifically how to install it.
+
+Your install.md can link to your llms.txt so the agent can reference it for troubleshooting, configuration details, or additional context needed during installation. We recommend putting any reference pages or your llms.txt at the end of your install.md file.
+
+```markdown
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://your-docs.com/llms.txt
+```
 
 ## Get started
 
-<Columns cols={2}>
+<CardGroup cols={2}>
   <Card
     title="Quickstart"
     icon="rocket"
@@ -110,23 +254,48 @@ This replaces complex, framework-specific setup scripts with clear, auditable in
   >
     Browse real-world examples of install.md files.
   </Card>
-  <Card
-    title="Integration guide"
-    icon="plug"
-    href="/essentials/integration"
-  >
-    Integrate install.md support into your AI tools.
-  </Card>
-</Columns>
+</CardGroup>
+
+## FAQ
+
+<AccordionGroup>
+
+<Accordion title="What about installation wizards like PostHog's or Sentry's?">
+Wizards solve the same problem: reliable installation across environments. They require significant engineering to build and maintain. install.md is a lighter-weight alternative—you define instructions in markdown, and the LLM handles adaptation. For complex integrations with many configuration options, a dedicated wizard may still be the right choice. For most software, install.md gets you most of the benefit with far less effort.
+</Accordion>
+
+<Accordion title="How does install.md work with my existing CLI or scripts?">
+install.md doesn't replace your existing tools—it works with them. Your install.md can instruct the LLM to run your CLI, execute your scripts, or follow your existing setup process. Think of it as a layer that guides the LLM to use whatever tools you've already built.
+</Accordion>
+
+<Accordion title="What about security? Isn't this just curl | bash with extra steps?">
+This is a fair concern. A few things make install.md different:
+
+1. **Human-readable by design.** Users can review the instructions before execution. Unlike obfuscated scripts, the intent is clear.
+2. **Step-by-step approval.** LLMs in agentic contexts can be configured to request approval before running commands. Users see each action and can reject it.
+3. **No hidden behavior.** install.md describes outcomes in natural language. Malicious intent is harder to hide than in a shell script. This is less safe than a shell script for example, because an install.md file can contain a script or even multiple scripts. But it's easier to audit than a sophisticated wizard or any tool that runs LLM prompts under the hood.
+
+install.md doesn't eliminate trust requirements. Users should only use install.md files from sources they trust—same as any installation method.
+</Accordion>
+
+<Accordion title="Is install.md only for developer tools?">
+No. install.md can be used for any software—desktop applications, system utilities, complex multi-component setups. If it can be installed via terminal commands, it can have an install.md.
+</Accordion>
+
+<Accordion title="Does install.md need its own page?">
+Not necessarily. It can be a snippet users copy-paste, or embedded directly in your existing installation page. The key is that users and agents can access the structured instructions.
+</Accordion>
+
+</AccordionGroup>
 
 ## The vision
 
 As AI agents become more capable, we envision a future where:
 
-- Software installation is both secure (through transparency) and convenient (through automation)
-- Installation instructions are auditable by anyone, regardless of technical expertise
-- Platform differences are handled intelligently without complex conditional logic
-- Users can trust what they're installing before they install it
+- Developers control exactly what context AI agents receive for installing their software
+- AI agents adapt installation to any environment and verify success automatically
+- Users can read, modify, and trust installation instructions before execution
+- The yak-shaving of software installation is handled entirely by AI
 
 <Card
   title="Read the full proposal"

@@ -3,10 +3,16 @@
   "theme": "linden",
   "name": "install.md",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#1EA454",
+    "light": "#5BC97A",
+    "dark": "#178F48"
   },
+  "font": {
+    "family": "Recursive",
+    "headings": "Recursive"
+  },
+  "css": "/custom.css",
+  "rounded": "none",
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
@@ -24,14 +30,13 @@
             "group": "Specification",
             "pages": [
               "essentials/format",
-              "essentials/examples",
-              "essentials/integration"
+              "essentials/examples"
             ]
           },
           {
-            "group": "Community",
+            "group": "Skills",
             "pages": [
-              "essentials/contributing"
+              "essentials/skills"
             ]
           }
         ]
@@ -43,11 +48,6 @@
           "anchor": "GitHub",
           "href": "https://github.com/mintlify/install-md",
           "icon": "github"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://github.com/mintlify/install-md/discussions",
-          "icon": "comments"
         }
       ]
     }

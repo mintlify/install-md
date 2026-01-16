@@ -50,7 +50,6 @@ Documentation files are in `.mdx` format:
 - `quickstart.mdx` - Quick start guide
 - `essentials/format.mdx` - Format specification
 - `essentials/examples.mdx` - Example install.md files
-- `essentials/integration.mdx` - Integration guide
 - `essentials/contributing.mdx` - Full contribution guide
 
 ## Community Standards

@@ -1,148 +1,186 @@
----
-title: "The /install.md file"
-date: 2026-01-10
-description: "A proposal to standardise on using an `/install.md` file to provide human-readable installation instructions that AI agents can execute safely and transparently."
----
+# install.md
 
-## Background
+A proposal to standardize software installation using task-oriented markdown files that AI agents execute autonomously.
 
-Software installation typically relies on shell scripts that users pipe directly to bash without inspection. While convenient, these scripts are often hundreds of lines of opaque commands containing complex conditionals, error handling, and system-specific workarounds that make auditing for malicious behavior extremely difficult.
+## The Problem
 
-AI agents are increasingly capable of understanding natural language instructions and executing complex multi-step operations. By providing installation instructions in human-readable prose rather than shell scripts, we can make software installation both more transparent (easy to audit) and more adaptable (AI agents can handle platform variations intelligently).
+When you ask an AI agent to install software today, you have no idea what context it receives—it might search the web, find outdated docs, or hallucinate commands. With install.md, developers define exactly what instructions the agent gets.
 
-## Proposal
+## The Solution
 
 ![install.md logo](logo.png)
 
-We propose adding an `/install.md` markdown file to software projects to provide human-readable, AI-executable installation instructions. This file offers clear, sequential instructions that describe what needs to happen rather than prescribing specific shell commands.
-
-install.md is human and AI readable, and uses a simple markdown format that's easy to audit at a glance.
-
-Instead of piping opaque scripts to bash, users could pipe readable markdown to an AI agent:
+Add an `/install.md` markdown file to your project with task-oriented installation instructions. install.md files are **direct commands**, not documentation—structured to trigger immediate autonomous execution.
 
 ```bash
-# Traditional approach (opaque)
-curl -fsSL https://bun.sh/install | bash
+# Pipe directly to an AI agent
+curl -fsSL https://example.com/install.md | claude
 
-# install.md approach (transparent)
-curl -fsSL https://bun.sh/install.md | claude
+# Or paste into any coding assistant like Claude Code or Cursor
 ```
 
-The [Mintlify documentation platform](https://mintlify.com) includes built-in support for install.md files. For instance, Mintlify-hosted documentation sites automatically provide an install.md file at `/install.md` that contains installation instructions for the documented software.
+## Why install.md?
 
-This proposal does not include any particular recommendation for how AI agents should process the install.md file, since it will depend on the application and the capabilities of the agent. The key benefit is transparency - users can read and understand what will happen before it happens, and malicious intent is much harder to hide in plain English than in complex shell scripts.
+- **Verifiable**: Developers and users know exactly what context the AI agent receives. Test it yourself, iterate on it, trust it.
+- **Adaptable**: AI agents adapt instructions to your environment—detecting your OS, package manager, project structure, and more.
+- **Verifies success**: install.md files include success criteria so the agent knows when installation is complete and working.
+- **Human-readable**: See exactly what will happen before it happens. Modify the instructions yourself if needed.
 
-The versatility of install.md files means they can serve many purposes - from helping developers install command-line tools, to guiding users through complex application setup, or even orchestrating multi-component system installations. They're just as useful for simple single-binary installations as they are for elaborate setups requiring configuration, dependencies, and post-installation verification.
+## Benefits
+
+**For developers**: Define installation once, it adapts to every environment. Encode edge cases and troubleshooting knowledge. Control exactly what context the LLM receives.
+
+**For users**: A single command installs software, or paste the file into any LLM. Human-readable instructions you can review before execution. Adapts to your specific environment automatically.
+
+**For agents**: Instructions live in a predictable location. Structured format with clear success criteria. Clean markdown input, not HTML.
 
 ## Format
 
-The `install.md` file uses standard Markdown with natural language instructions that describe the installation process. The format prioritizes human readability while remaining unambiguous enough for AI agents to execute reliably.
+The `install.md` file uses standard Markdown with a required structure designed to trigger autonomous execution:
 
-The install.md file spec is for files located at the root path `/install.md` of a project's website. A file following the spec contains the following sections as markdown, in the specific order:
+1. **H1 Title** - Lowercase, hyphenated identifier (e.g., `# firecrawl`)
+2. **Blockquote Summary** - Brief description of what the software does
+3. **Conversational Opening** - "I want you to install [product] for me. Execute all the steps below autonomously."
+4. **OBJECTIVE** - Concise goal statement
+5. **DONE WHEN** - Specific, measurable success condition (e.g., "server running at localhost:3000")
+6. **TODO Section** - Markdown checkboxes (3-7 items) listing core tasks
+7. **Detailed Steps** - Sequential instructions with explicit commands
+8. **EXECUTE NOW Closing** - "EXECUTE NOW: Complete the above TODO list to achieve: [restate DONE WHEN]"
+9. **llms.txt Reference** - Optional link to llms.txt for additional context
 
-- An H1 with the name of the software being installed. This is the only required section
-- A blockquote with a brief summary of what the software does
-- Sequential installation instructions written in natural language, organized into paragraphs describing each major step
-- Environment detection guidance (OS, architecture, available tools)
-- Post-installation verification steps
+Use task language throughout: "You need to...", "You must...", "Your task is to..."
 
-Here is a mock example:
+### Example
 
-```markdown
-# Tool Name
+Here's an install.md file for Resend (see the [docs](https://installmd.org/essentials/examples) for Firecrawl, Trigger.dev, Browserbase, and Mintlify examples):
 
-> Brief description of what the tool does
+`````markdown
+# resend
 
-Install the tool for me.
+> Documentation and setup instructions for resend
 
-Detect my operating system and architecture, then download the appropriate
-binary from GitHub releases (username/repo).
+I want you to install Resend for me. Execute all the steps below autonomously.
 
-Extract the archive to ~/.local/bin and make the binary executable.
+OBJECTIVE: Set up Resend email API integration with a working email-sending capability.
 
-Add ~/.local/bin to my PATH if it's not already there.
+DONE WHEN: You can successfully send a test email using the Resend API and receive a successful response with an email ID.
 
-Verify the installation with: toolname --version
+## TODO
+
+- [ ] Install the Resend SDK
+- [ ] Set up API key configuration
+- [ ] Create a test email script
+- [ ] Send a test email and verify the response
+
+## Install the SDK
+
+You need to install the Resend SDK for your project:
+
+```bash
+npm install resend
 ```
 
-The key principle is to describe *what* needs to happen, not *how* to do it with specific commands. This allows AI agents to adapt to different environments, handle edge cases intelligently, and use available tools flexibly.
+Or with other package managers:
 
-## Existing standards
+```bash
+# yarn
+yarn add resend
 
-install.md is designed to complement existing installation methods. Traditional installation approaches include shell scripts, package managers, and manual documentation. Each has trade-offs that install.md addresses differently.
+# pnpm
+pnpm add resend
 
-Shell scripts (`install.sh`, `curl | bash`) are the most direct parallel to install.md. install.md and shell scripts have different purposes---shell scripts provide explicit commands that execute identically regardless of who runs them, while install.md provides instructions that AI agents interpret and adapt to the specific environment. Our expectation is that install.md will mainly be useful when users want transparency and adaptability, particularly for tools distributed outside package manager ecosystems.
-
-Package managers (apt, brew, npm, etc.) remain the preferred installation method when available. This isn't a substitute for install.md since:
-
-- Many tools aren't available in package managers
-- Package managers don't handle custom configuration or multi-step setup
-- Cross-platform installation often requires users to know which package manager to use
-- Some installations require additional steps beyond package installation
-
-## Example
-
-Here's an example of `install.md`, in this case for PostHog analytics integration:
-
-```markdown
-# PostHog
-
-> PostHog is an open-source product analytics platform that helps you understand user behavior.
-
-Install PostHog into my project.
-
-First, detect my project type by examining the repository structure:
-- Look for package.json, requirements.txt, Gemfile, or other dependency files
-- Identify the framework (React, Next.js, Vue, Django, Rails, etc.)
-- Note the language and whether TypeScript is being used
-
-Install the appropriate PostHog SDK for my project using the detected package manager:
-- For npm: npm install posthog-js
-- For yarn: yarn add posthog-js
-- For pnpm: pnpm add posthog-js
-- For bun: bun add posthog-js
-- For Python projects: pip install posthog
-- For Ruby projects: gem install posthog-ruby
-- For React Native: npm install posthog-react-native
-- For Node.js backend: npm install posthog-node
-
-Identify which files need modification to integrate PostHog:
-- Look for existing provider files, app entry points, or configuration files
-- For React/Next.js: Find or create a providers file or modify _app.tsx/layout.tsx
-- For other frameworks: Find the main application entry point
-- Create new files only if no appropriate existing file exists
-
-Add PostHog initialization code to the identified files:
-- Initialize the PostHog client with the project API key and host
-- For React: Wrap the app with PostHog provider if needed
-- Follow the existing code style and import patterns of the project
-- Use relative imports if the project structure is unclear
-
-For additional functionality, check if the project needs:
-- User identification tracking (for logged-in users)
-- Custom event tracking
-- Feature flags setup
-- Session replay configuration
-
-Preserve existing code formatting and style throughout all modifications.
-
-Note: The actual API key should be provided by the user or loaded from environment variables. Use placeholder values in configuration examples.
+# Python
+pip install resend
 ```
 
-To create effective `install.md` files, consider these guidelines:
+## Configure API Key
 
-- Use clear, direct language that describes intent
-- Provide fallback options for different scenarios
-- Include environment detection guidance
-- Mention prerequisites and verification steps
-- Keep instructions sequential and organized
+You must set your API key as an environment variable:
+
+```bash
+export RESEND_API_KEY="re_xxxxxxxxx"
+```
+
+Note: Obtain an API key from https://resend.com/api-keys before proceeding.
+
+## Create Test Script
+
+Your task is to create a test script. Create `send-email.js`:
+
+```javascript
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+const { data, error } = await resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: ['delivered@resend.dev'],
+  subject: 'Hello World',
+  html: '<strong>It works!</strong>',
+});
+
+if (error) {
+  console.error('Error:', error);
+} else {
+  console.log('Email sent! ID:', data.id);
+}
+```
+
+## Send Test Email
+
+You must execute the test script:
+
+```bash
+node send-email.js
+```
+
+A successful response returns an email ID.
+
+EXECUTE NOW: Complete the above TODO list to achieve: Successfully send a test email using the Resend API and receive a successful response with an email ID.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://resend.com/docs/llms.txt
+`````
+
+## What to Include
+
+- All shell commands needed for the core workflow
+- Installation commands for relevant platforms/package managers
+- Verification commands (--version, health checks)
+- Commands to create and run a minimal working example
+
+## What to Omit
+
+- Troubleshooting sections (save for llms.txt)
+- Optional/advanced features
+- GUI-only steps (unless required before any local functionality)
+- Alternative installation methods (pick the most reliable one)
+- Lengthy explanations (show commands, not concepts)
+
+## Relationship to llms.txt
+
+install.md works naturally with [llms.txt](https://llmstxt.org/). While llms.txt helps LLMs understand your software broadly, install.md tells them specifically how to install it. Your install.md can link to your llms.txt so the agent can reference it for troubleshooting or additional context.
+
+## Existing Standards
+
+install.md complements existing installation methods:
+
+- **Shell scripts** (`install.sh`) execute identically regardless of environment. install.md provides instructions that AI agents interpret and adapt.
+- **Package managers** remain preferred for simple package installation. install.md handles what they don't: custom configuration, multi-step setup, cross-platform installation, and verification.
+
+install.md is useful for complex installations, SDK integrations that modify code, and setups where verification and success criteria matter.
 
 ## Integrations
 
-Various tools and platforms are available to help integrate the install.md specification into your workflow:
+- [Mintlify](https://mintlify.com) - Documentation platform with built-in install.md support. Mintlify-hosted docs automatically generate and serve install.md files.
 
-- [Mintlify](https://mintlify.com) - Documentation platform with built-in install.md support. Mintlify-hosted docs automatically generate and serve install.md files for documented software.
+## Resources
 
-## Next steps
+- [Full documentation](https://installmd.org) - Format specification, examples, and guides
+- [Skills for AI tools](https://installmd.org/essentials/skills) - Generate install.md files in Claude Code, Cursor, and Windsurf
+- [GitHub Discussions](https://github.com/mintlify/install-md/discussions) - Share experiences and discuss best practices
 
-The `install.md` specification is open for community input. A [GitHub repository](https://github.com/mintlify/install-md) hosts [this informal overview](https://github.com/mintlify/install-md/blob/main/README.md), allowing for version control and public discussion. A [community discussion board](https://github.com/mintlify/install-md/discussions) is available for sharing implementation experiences and discussing best practices.
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add examples, improve the docs, or build integrations.

@@ -1,13 +1,3 @@
----
-title: "Quickstart"
-description: "Create your first install.md file"
----
-
-## Example
-
-Here's Firecrawl's install.md ([docs.firecrawl.dev/install.md](https://docs.firecrawl.dev/install.md)):
-
-`````markdown
 # firecrawl
 
 > Documentation and setup instructions for firecrawl
@@ -154,52 +144,3 @@ EXECUTE NOW: Complete the above TODO list to achieve: Successfully scraped a URL
 ---
 
 > If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://docs.firecrawl.dev/llms.txt
-`````
-
-## Test it
-
-1. Copy your install.md content
-2. Paste it into Claude Code, Cursor, or another AI coding assistant
-3. Watch the agent execute each step autonomously
-4. Iterate until it works reliably
-
-<Warning>Always review what the agent plans to do before confirming execution.</Warning>
-
-## Publish
-
-### Using Mintlify
-
-If you use [Mintlify](https://mintlify.com) for documentation, install.md is generated automatically at `yourdocs.com/install.md`. You can also provide a custom install.md by placing a file in your docs repository.
-
-### Manual hosting
-
-For non-Mintlify sites, create an `install.md` file and serve it at the root of your documentation or project website:
-
-```
-https://your-domain.com/install.md
-https://docs.your-domain.com/install.md
-https://your-domain.com/docs/install.md
-```
-
-**Static sites (GitHub Pages, Netlify, Vercel):** Place `install.md` in your public/static directory.
-
-**Custom servers:** Add a route that serves the markdown file with `Content-Type: text/markdown` or `text/plain`.
-
-**GitHub repositories:** You can also host install.md in your repository root. Users can access it via raw.githubusercontent.com:
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/your-org/your-repo/main/install.md | claude
-```
-
-The key requirement is that users and agents can fetch the file via a simple URL.
-
-## Next steps
-
-<CardGroup cols={2}>
-  <Card title="Format specification" icon="file-lines" href="/essentials/format">
-    Detailed breakdown of each required section.
-  </Card>
-  <Card title="See real examples" icon="code" href="/essentials/examples">
-    Production install.md files from Trigger.dev, Browserbase, Resend, and more.
-  </Card>
-</CardGroup>
