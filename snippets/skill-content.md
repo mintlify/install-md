@@ -75,7 +75,7 @@ WRITING STYLE:
 
 FORMATTING:
 - Standard markdown ONLY: ## headers, bullet lists, code blocks
-- NO HTML tags: no <Tabs>, <Tab>, <Note>, <Warning>, <Tip>, <Accordion>, <Steps>
+- NO HTML tags: no `<Tabs>`, `<Tab>`, `<Note>`, `<Warning>`, `<Tip>`, `<Accordion>`, `<Steps>`
 - Group platform-specific commands: "On macOS:" / "On Linux:" / "On Windows:"
 
 WHAT TO PRESERVE:
