@@ -57,8 +57,7 @@ DONE WHEN: Running `myapp --version` outputs the version number.
 ## TODO
 
 - [ ] Download the appropriate binary for my OS and architecture
-- [ ] Install to ~/.local/bin (or equivalent)
-- [ ] Add to PATH if needed
+- [ ] Make executable and install to /usr/local/bin
 - [ ] Verify installation with myapp --version
 ```
 
@@ -81,16 +80,14 @@ curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwi
 curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
 ```
 
-## Install to PATH
+## Install the binary
 
-You must make the binary executable and move it to a directory in PATH:
+You must make the binary executable and move it to a location in your PATH:
 
 ```bash
 chmod +x myapp
-mv myapp ~/.local/bin/
+sudo mv myapp /usr/local/bin/
 ```
-
-If `~/.local/bin` is not in PATH, add it to your shell configuration.
 
 ## Verify installation
 
@@ -131,8 +128,7 @@ DONE WHEN: Running `myapp --version` outputs the version number.
 ## TODO
 
 - [ ] Download the appropriate binary for my OS and architecture
-- [ ] Install to ~/.local/bin (or equivalent)
-- [ ] Add to PATH if needed
+- [ ] Make executable and install to /usr/local/bin
 - [ ] Verify installation with myapp --version
 
 ## Download the binary
@@ -149,16 +145,14 @@ curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwi
 curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
 ```
 
-## Install to PATH
+## Install the binary
 
-You must make the binary executable and move it to a directory in PATH:
+You must make the binary executable and move it to a location in your PATH:
 
 ```bash
 chmod +x myapp
-mv myapp ~/.local/bin/
+sudo mv myapp /usr/local/bin/
 ```
-
-If `~/.local/bin` is not in PATH, add it to your shell configuration.
 
 ## Verify installation
 
