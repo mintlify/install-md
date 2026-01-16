@@ -5,11 +5,11 @@ description: "Create your first install.md file in minutes"
 
 ## What you'll build
 
-In this guide, you'll create an install.md file for a hypothetical CLI tool called "myapp". By the end, you'll understand the structure and how to write task-oriented installation instructions.
+You'll create an install.md file for a hypothetical CLI tool called "myapp". Each step shows you what to add to your file.
 
-## Step 1: Start with the basics
+## Step 1: Title and description
 
-Create a new file called `install.md` and add the title, description, and opening command:
+Create `install.md` with the product name and a brief description:
 
 ```markdown
 # myapp
@@ -19,41 +19,23 @@ Create a new file called `install.md` and add the title, description, and openin
 I want you to install MyApp for me. Execute all the steps below autonomously.
 ```
 
-The title (H1) should be lowercase and hyphenated. The blockquote briefly describes what it does. The opening line signals this is a command, not documentation.
+## Step 2: Success criteria
 
-## Step 2: Define success criteria
-
-Add OBJECTIVE and DONE WHEN to specify exactly what success looks like:
+Add OBJECTIVE and DONE WHEN so the agent knows when it's finished:
 
 ```markdown
-# myapp
-
-> MyApp is a command-line tool for managing your tasks and projects.
-
-I want you to install MyApp for me. Execute all the steps below autonomously.
-
 OBJECTIVE: Install the MyApp CLI and verify it works.
 
 DONE WHEN: Running `myapp --version` outputs the version number.
 ```
 
-<Tip>DONE WHEN should be specific and measurable—something the agent can verify.</Tip>
+<Tip>DONE WHEN should be specific and verifiable.</Tip>
 
-## Step 3: Add the TODO checklist
+## Step 3: TODO checklist
 
-Give the agent a clear task list with markdown checkboxes:
+Add a checklist of tasks for the agent to complete:
 
 ```markdown
-# myapp
-
-> MyApp is a command-line tool for managing your tasks and projects.
-
-I want you to install MyApp for me. Execute all the steps below autonomously.
-
-OBJECTIVE: Install the MyApp CLI and verify it works.
-
-DONE WHEN: Running `myapp --version` outputs the version number.
-
 ## TODO
 
 - [ ] Download the appropriate binary for my OS and architecture
@@ -61,9 +43,9 @@ DONE WHEN: Running `myapp --version` outputs the version number.
 - [ ] Verify installation with myapp --version
 ```
 
-## Step 4: Write detailed instructions
+## Step 4: Detailed instructions
 
-Expand each TODO item with explicit commands. Use task language ("You need to...", "You must..."):
+Expand each TODO item into sections with commands. Use directive language—"You need to", "You must"—to make clear these are instructions for the agent:
 
 ```markdown
 ## Download the binary
@@ -71,50 +53,46 @@ Expand each TODO item with explicit commands. Use task language ("You need to...
 You need to detect the operating system and download the appropriate binary:
 
 **macOS:**
-```bash
 curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwin-arm64 -o myapp
-```
 
 **Linux:**
-```bash
 curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
-```
 
 ## Install the binary
 
 You must make the binary executable and move it to a location in your PATH:
 
-```bash
 chmod +x myapp
 sudo mv myapp /usr/local/bin/
-```
 
 ## Verify installation
 
 You must confirm the installation succeeded:
 
-```bash
 myapp --version
 ```
-```
 
-## Step 5: Add the closing directive
+## Step 5: Closing directive
 
-End with EXECUTE NOW and an optional llms.txt reference:
+End with EXECUTE NOW to trigger execution:
 
 ```markdown
 EXECUTE NOW: Complete the above TODO list to achieve: Running `myapp --version` outputs the version number.
+```
 
+Optionally reference an llms.txt file for additional context:
+
+```markdown
 ---
 
 > If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://example.com/llms.txt
 ```
 
-## Complete example
+## Complete install.md
 
-Here's the full install.md:
+Here's everything together:
 
-```markdown
+`````markdown
 # myapp
 
 > MyApp is a command-line tool for managing your tasks and projects.
@@ -167,35 +145,29 @@ EXECUTE NOW: Complete the above TODO list to achieve: Running `myapp --version` 
 ---
 
 > If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://example.com/llms.txt
-```
+`````
 
 ## Test it
 
-1. Copy your install.md content
+1. Copy the install.md content above
 2. Paste it into Claude Code, Cursor, or another AI coding assistant
-3. Watch the agent execute each step autonomously
+3. Watch the agent execute each step
 4. Iterate until it works reliably
 
 <Warning>Always review what the agent plans to do before confirming execution.</Warning>
 
 ## Publish
 
-### Using Mintlify
+**Mintlify users:** install.md is generated automatically at `yourdocs.com/install.md`.
 
-If you use [Mintlify](https://mintlify.com) for documentation, install.md is generated automatically at `yourdocs.com/install.md`. You can also provide a custom install.md by placing a file in your docs repository.
-
-### Manual hosting
-
-For non-Mintlify sites, create an `install.md` file and serve it at the root of your documentation:
+**Everyone else:** Host your `install.md` at a predictable URL:
 
 ```
 https://your-domain.com/install.md
 https://docs.your-domain.com/install.md
 ```
 
-**Static sites:** Place `install.md` in your public/static directory.
-
-**GitHub repositories:** Host in your repo root and access via raw.githubusercontent.com:
+Or from a GitHub repo:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/your-org/your-repo/main/install.md | claude
