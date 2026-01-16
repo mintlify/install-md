@@ -1,0 +1,214 @@
+/* Recursive Variable Font - Sans & Mono for Markdown */
+@import url('https://fonts.googleapis.com/css2?family=Recursive:slnt,wght,CASL,CRSV,MONO@-15..0,300..1000,0..1,0..1,0..1&display=swap');
+
+/* OKLCH Color Scale - Perceptually Uniform Green */
+:root {
+  --color-1: oklch(0.989 0.010 145.0);
+  --color-2: oklch(0.978 0.018 145.0);
+  --color-3: oklch(0.956 0.042 145.0);
+  --color-4: oklch(0.931 0.062 145.0);
+  --color-5: oklch(0.902 0.082 145.0);
+  --color-6: oklch(0.868 0.102 145.0);
+  --color-7: oklch(0.823 0.125 145.0);
+  --color-8: oklch(0.762 0.153 145.0);
+  --color-9: oklch(0.623 0.178 145.0);
+  --color-10: oklch(0.579 0.179 145.0);
+  --color-11: oklch(0.464 0.143 145.0);
+  --color-12: oklch(0.348 0.095 145.0);
+
+  /* Recursive font settings */
+  --font-sans: 'Recursive', system-ui, sans-serif;
+  --font-mono: 'Recursive', ui-monospace, monospace;
+
+  /* Override Mintlify rounded corners */
+  --radius-default: 0 !important;
+  --radius-sm: 0 !important;
+  --radius-md: 0 !important;
+  --radius-lg: 0 !important;
+  --radius-xl: 0 !important;
+  --radius-2xl: 0 !important;
+  --radius-full: 0 !important;
+}
+
+/* Base font - Recursive Sans (proportional, linear) */
+body,
+html {
+  font-family: 'Recursive', system-ui, sans-serif;
+  font-variation-settings: 'MONO' 0, 'CASL' 0, 'wght' 400, 'slnt' 0, 'CRSV' 0;
+}
+
+/* Headings - slightly more casual, bolder */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Recursive', system-ui, sans-serif;
+  font-variation-settings: 'MONO' 0, 'CASL' 0.3, 'wght' 700, 'slnt' 0, 'CRSV' 0;
+}
+
+/* Code - Recursive Mono */
+code,
+pre,
+pre code,
+[class*="code"],
+kbd,
+samp {
+  font-family: 'Recursive', ui-monospace, monospace !important;
+  font-variation-settings: 'MONO' 1, 'CASL' 0, 'wght' 400, 'slnt' 0, 'CRSV' 0 !important;
+}
+
+/* Inline code - slightly lighter weight */
+:not(pre) > code {
+  font-variation-settings: 'MONO' 1, 'CASL' 0, 'wght' 450, 'slnt' 0, 'CRSV' 0;
+  background-color: var(--color-2);
+  border: 1px solid var(--color-4);
+  padding: 0.125em 0.25em;
+}
+
+/* Remove all border radius globally */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+}
+
+/* Primary accent color */
+.bg-primary,
+[class*="bg-primary"] {
+  background-color: var(--color-9) !important;
+}
+
+.text-primary,
+[class*="text-primary"] {
+  color: var(--color-9) !important;
+}
+
+.border-primary,
+[class*="border-primary"] {
+  border-color: var(--color-9) !important;
+}
+
+/* Hover states use color-10 */
+.bg-primary:hover,
+[class*="bg-primary"]:hover {
+  background-color: var(--color-10) !important;
+}
+
+/* Links */
+a {
+  color: var(--color-9);
+}
+
+a:hover {
+  color: var(--color-10);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-4);
+  color: var(--color-12);
+}
+
+/* Focus rings */
+:focus-visible {
+  outline-color: var(--color-8);
+}
+
+/* Strong/bold text - heavier weight */
+strong, b {
+  font-variation-settings: 'MONO' 0, 'CASL' 0, 'wght' 600, 'slnt' 0, 'CRSV' 0;
+}
+
+/* Italic text - use slant axis */
+em, i {
+  font-variation-settings: 'MONO' 0, 'CASL' 0.2, 'wght' 400, 'slnt' -12, 'CRSV' 1;
+  font-style: normal;
+}
+
+/* Blockquotes - slightly casual italic */
+blockquote {
+  font-variation-settings: 'MONO' 0, 'CASL' 0.3, 'wght' 400, 'slnt' -8, 'CRSV' 0;
+}
+
+/* Navigation - clean and linear */
+nav,
+[class*="nav"],
+[class*="sidebar"] {
+  font-variation-settings: 'MONO' 0, 'CASL' 0, 'wght' 450, 'slnt' 0, 'CRSV' 0;
+  border-radius: 0 !important;
+}
+
+/* Buttons - medium weight */
+button,
+[class*="button"],
+[class*="btn"],
+a[class*="button"],
+a[class*="btn"] {
+  font-variation-settings: 'MONO' 0, 'CASL' 0, 'wght' 500, 'slnt' 0, 'CRSV' 0;
+  border-radius: 0 !important;
+}
+
+/* Cards */
+[class*="card"],
+[class*="Card"] {
+  border-radius: 0 !important;
+}
+
+/* Input fields */
+input,
+textarea,
+select {
+  font-family: 'Recursive', system-ui, sans-serif;
+  font-variation-settings: 'MONO' 0, 'CASL' 0, 'wght' 400, 'slnt' 0, 'CRSV' 0;
+  border-radius: 0 !important;
+}
+
+/* Callouts and alerts */
+[class*="callout"],
+[class*="alert"],
+[class*="note"],
+[class*="warning"],
+[class*="info"] {
+  border-radius: 0 !important;
+}
+
+/* Badges and tags */
+[class*="badge"],
+[class*="tag"],
+[class*="chip"] {
+  font-variation-settings: 'MONO' 0, 'CASL' 0, 'wght' 500, 'slnt' 0, 'CRSV' 0;
+  border-radius: 0 !important;
+}
+
+/* Modal and dialog */
+[class*="modal"],
+[class*="dialog"],
+[class*="popup"] {
+  border-radius: 0 !important;
+}
+
+/* Dropdown menus */
+[class*="dropdown"],
+[class*="menu"],
+[class*="popover"] {
+  border-radius: 0 !important;
+}
+
+/* Search */
+[class*="search"] {
+  border-radius: 0 !important;
+}
+
+/* Tooltips */
+[class*="tooltip"] {
+  border-radius: 0 !important;
+}
+
+/* Tab styling */
+[class*="tab"] {
+  border-radius: 0 !important;
+}
+
+/* Image containers */
+img,
+[class*="image"],
+[class*="avatar"] {
+  border-radius: 0 !important;
+}

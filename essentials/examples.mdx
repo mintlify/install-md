@@ -1,289 +1,796 @@
 ---
 title: "Examples"
-description: "Real-world install.md file examples"
+description: "Real-world install.md files from production documentation"
 ---
 
-## SDK Integration
+import TriggerInstall from "/snippets/trigger-install.md";
+import BrowserbaseInstall from "/snippets/browserbase-install.md";
+import ResendInstall from "/snippets/resend-install.md";
+import MintlifyInstall from "/snippets/mintlify-install.md";
+import FirecrawlInstall from "/snippets/firecrawl-install.md";
 
-Integrating an SDK into an existing codebase:
+These are actual install.md files from companies using Mintlify for their documentation. Each example shows both the rendered preview and raw markdown source.
 
-```markdown
-# PostHog
+## Real install.md files
 
-> PostHog is an open-source product analytics platform that helps you
-> understand user behavior.
+<AccordionGroup>
 
-Install PostHog into my project.
+<Accordion title="Trigger.dev" icon="bolt" defaultOpen>
 
-First, detect my project type by examining the repository structure:
-- Look for package.json, next.config.js, or other framework config files
-- Identify if this is React, Next.js, Vue, or another framework
-- Check if the project uses TypeScript by looking for tsconfig.json
+Open source background jobs framework for Node.js/TypeScript.
 
-Detect the package manager being used (check for package-lock.json, yarn.lock,
-pnpm-lock.yaml, or bun.lockb).
+**Source:** [trigger.dev/docs/install.md](https://trigger.dev/docs/install.md)
 
-Install the PostHog SDK using the detected package manager:
-- For npm: npm install posthog-js
-- For yarn: yarn add posthog-js
-- For pnpm: pnpm add posthog-js
-- For bun: bun add posthog-js
+<Tabs>
+  <Tab title="Preview">
+    <TriggerInstall />
+  </Tab>
+  <Tab title="Markdown">
+`````markdown
+# trigger
 
-For Next.js projects:
-- Detect if using App Router (app/ directory) or Pages Router (pages/ directory)
-- App Router: Look for app/layout.tsx to modify
-- Pages Router: Look for pages/_app.tsx to modify
+> Trigger.dev is an open source background jobs framework that lets you write reliable workflows in plain async code. Run long-running AI tasks, handle complex background jobs, and build AI agents with built-in queuing, automatic retries, and real-time monitoring. No timeouts, elastic scaling, and zero infrastructure management required.
 
-Identify existing files that should be modified:
-- Check for provider files (providers.tsx, context/, etc.)
-- Look for app initialization files
-- Prefer modifying existing files over creating new ones
+I want you to install Trigger.dev for me. Execute all the steps below autonomously.
 
-Add PostHog initialization code:
-- Import posthog-js at the top of the file
-- Initialize PostHog with API key from environment variables
-- For React: Wrap the application with PostHogProvider if needed
-- Follow the existing code style and formatting patterns
+OBJECTIVE: Set up Trigger.dev in an existing Node.js/TypeScript project with a working example task.
 
-Create or update .env.local with:
-- NEXT_PUBLIC_POSTHOG_KEY=<placeholder>
-- NEXT_PUBLIC_POSTHOG_HOST=https://app.posthog.com
+DONE WHEN: The `npx trigger.dev@latest dev` command is running, the example task is registered, and you can see the dev server output with URLs to the Trigger.dev dashboard.
 
-Add .env.local to .gitignore if not already present.
+## TODO
 
-Verify the integration by checking the browser console for PostHog
-initialization messages when running the development server.
+- [ ] Run the CLI init command to set up Trigger.dev configuration and example task
+- [ ] Install the "Hello World" example task when prompted
+- [ ] Start the dev server with the CLI dev command
+- [ ] Verify the dev server is running and tasks are registered
 
-Preserve all existing code formatting, style, and import patterns throughout.
+## Prerequisites
+
+You need to have:
+- An existing Node.js project with a `package.json` file
+- TypeScript installed in the project
+- A Trigger.dev account created at https://cloud.trigger.dev
+- A project created in the Trigger.dev dashboard
+
+## Task 1: Initialize Trigger.dev in your project
+
+You must run the CLI init command in the root of your project. This will create the configuration file and example task.
+
+Using npm:
+```bash
+npx trigger.dev@latest init
 ```
 
-## Language runtime
-
-Installing a programming language runtime with environment setup:
-
-```markdown
-# Deno
-
-> Deno is a modern runtime for JavaScript and TypeScript.
-
-Install Deno for me.
-
-Detect my operating system and download the appropriate installer:
-- For macOS and Linux: Use the shell installer from deno.land
-- For Windows: Use the PowerShell installer
-
-Install Deno to ~/.deno by default, or suggest a different location
-if that directory already exists and contains something else.
-
-Add Deno's bin directory to my PATH by updating my shell configuration:
-- For bash: update ~/.bashrc
-- For zsh: update ~/.zshrc
-- For fish: update ~/.config/fish/config.fish
-- For PowerShell: update PowerShell profile
-
-Tell me to reload my shell or provide the command to add to PATH manually.
-
-Verify with: deno --version
-
-Optional: If I want, also run: deno completions <my-shell> > <completion-path>
-to install shell completions.
+Using pnpm:
+```bash
+pnpm dlx trigger.dev@latest init
 ```
 
-## Package with dependencies
-
-A more complex installation requiring prerequisites:
-
-```markdown
-# Docker Desktop
-
-> Docker Desktop is an application for building and sharing containerized
-> applications and microservices.
-
-Install Docker Desktop for me.
-
-First, check if I'm on macOS, Windows, or Linux. Docker Desktop installation
-varies significantly by platform.
-
-For macOS:
-- Check if I have an Intel or Apple Silicon Mac
-- Download the appropriate .dmg from docker.com/products/docker-desktop
-- Open the .dmg and drag Docker to Applications
-- Launch Docker Desktop and wait for it to start
-- If prompted, allow the installation of helper tools (requires sudo)
-
-For Windows:
-- Check if WSL 2 is installed and enabled. If not, help me install it first
-- Download Docker Desktop installer from docker.com
-- Run the installer
-- Restart computer if prompted
-- Launch Docker Desktop and complete the setup
-
-For Linux:
-- Suggest using Docker Engine instead, as Docker Desktop for Linux is less
-  common. Would I prefer Docker Engine?
-- If I really want Docker Desktop: check if I'm on a supported distro
-  (Ubuntu, Debian, Fedora) and follow the Linux-specific installation
-
-After installation:
-- Verify Docker is running: docker --version
-- Test with: docker run hello-world
-- If there are permission issues on Linux, help me add my user to the
-  docker group
-
-Tell me if I need to restart any terminals or shells.
+Using yarn:
+```bash
+yarn dlx trigger.dev@latest init
 ```
 
-## Development tool with configuration
+The init command will:
+1. Log you into the CLI if not already logged in (opens browser for authentication)
+2. Create a `trigger.config.ts` file in the project root
+3. Ask where to create the `/trigger` directory
+4. Create the `/trigger` directory with an example task at `/trigger/example.ts`
 
-Installation that includes interactive setup:
+When prompted, you must install the "Hello World" example task.
 
-```markdown
-# Stripe CLI
+## Task 2: Start the development server
 
-> The Stripe CLI helps you build, test, and manage your Stripe integration
-> right from the terminal.
+You need to run the dev command to start the local task server. This watches for changes in your `/trigger` directory and communicates with the Trigger.dev platform.
 
-Install the Stripe CLI for me.
-
-Installation method based on my OS:
-
-For macOS: Use Homebrew if available: brew install stripe/stripe-cli/stripe
-Otherwise, download the binary from GitHub releases (stripe/stripe-cli)
-
-For Linux: Use the appropriate package manager:
-- Debian/Ubuntu: Download the .deb and install with dpkg
-- RedHat/CentOS: Download the .rpm and install with rpm
-- Arch: Install from AUR if I use an AUR helper
-- Other: Download binary from GitHub releases
-
-For Windows: Use Scoop: scoop bucket add stripe; scoop install stripe
-Or download the .exe from GitHub releases
-
-If downloading binaries, extract to a directory in my PATH, or add the
-installation directory to PATH.
-
-After installation, verify with: stripe --version
-
-Configuration:
-Ask if I want to authenticate now. If yes, run: stripe login
-This will open a browser to authenticate with Stripe. Follow the prompts.
-
-If I need to use a test mode API key instead: stripe login --api-key <key>
-
-Verify authentication by listing my Stripe resources: stripe customers list
+Using npm:
+```bash
+npx trigger.dev@latest dev
 ```
 
-## System service
-
-Installing a service that runs in the background:
-
-```markdown
-# PostgreSQL
-
-> PostgreSQL is a powerful, open source object-relational database system.
-
-Install PostgreSQL for me.
-
-Use the most appropriate method for my operating system:
-
-For macOS:
-- Recommended: Use Homebrew: brew install postgresql@15
-- After installation: brew services start postgresql@15
-- Or start manually: pg_ctl -D /usr/local/var/postgresql@15 start
-
-For Linux:
-- Use the system package manager:
-  - Ubuntu/Debian: sudo apt-get install postgresql postgresql-contrib
-  - Fedora/RHEL: sudo dnf install postgresql-server postgresql-contrib
-  - Arch: sudo pacman -S postgresql
-- Initialize the database cluster if needed (some distros do this automatically)
-- Start the service: sudo systemctl start postgresql
-- Enable at boot: sudo systemctl enable postgresql
-
-For Windows:
-- Download the installer from postgresql.org
-- Run the installer and follow the wizard
-- Note the password I set for the postgres user
-- The service should start automatically
-
-Post-installation:
-- Check PostgreSQL is running: psql --version
-- Try connecting as postgres user: sudo -u postgres psql (Linux/macOS)
-  or use pgAdmin on Windows
-- Create a database for my current user if desired:
-  sudo -u postgres createdb $(whoami)
-
-Tell me the default port (5432) and how to connect.
+Using pnpm:
+```bash
+pnpm dlx trigger.dev@latest dev
 ```
 
-## Library with build requirements
-
-Installation requiring compilation:
-
-```markdown
-# tree-sitter
-
-> Tree-sitter is a parser generator tool and incremental parsing library.
-
-Install tree-sitter for me.
-
-Check if I want the CLI tool, the library, or both. The CLI is most common
-for general use.
-
-Prerequisites:
-- C compiler (gcc or clang)
-- Node.js 12+ (if I want to use the Node bindings)
-- Rust/Cargo (if I want to install via cargo)
-
-Installation options:
-
-Option 1 - Via NPM (easiest for CLI):
-npm install -g tree-sitter-cli
-
-Option 2 - Via Cargo (if I have Rust):
-cargo install tree-sitter-cli
-
-Option 3 - Build from source:
-- Clone the repository: git clone https://github.com/tree-sitter/tree-sitter
-- cd tree-sitter
-- make
-- sudo make install (or copy the binary to ~/.local/bin)
-
-Option 4 - Package manager:
-- macOS: brew install tree-sitter
-- Linux: Check if available in system repos (may be outdated)
-
-Recommend the best option based on what I have installed.
-
-After installation:
-- Verify with: tree-sitter --version
-- Try parsing a file: tree-sitter parse <filename>
-
-If I want to use tree-sitter in a project, help me set up the language
-grammars I need.
+Using yarn:
+```bash
+yarn dlx trigger.dev@latest dev
 ```
 
-## Minimal installation
+The dev server will output URLs including a link to the Test page in the dashboard where you can trigger test runs.
 
-The simplest possible install.md:
+## Task 3: Verify the setup
 
-```markdown
-# jq
+You must confirm the dev server is running successfully. Look for output showing:
+- The dev server has started
+- Your example task is registered
+- URLs to the Trigger.dev dashboard are displayed
 
-> jq is a lightweight command-line JSON processor.
+The terminal should show task registration and provide links to view runs in the dashboard.
 
-Install jq using my system's package manager:
-- macOS: brew install jq
-- Ubuntu/Debian: sudo apt-get install jq
-- Fedora: sudo dnf install jq
-- Arch: sudo pacman -S jq
-- Windows: choco install jq or scoop install jq
+## Optional: Set up concurrent development
 
-If no package manager is available, download the binary from
-https://jqlang.github.io/jq/download/ and place it somewhere in my PATH.
+If you want to run your app and Trigger.dev dev server together, add these scripts to `package.json`:
 
-Verify with: jq --version
+```json
+{
+  "scripts": {
+    "trigger:dev": "npx trigger.dev@latest dev",
+    "dev": "npx concurrently --kill-others --names \"app,trigger\" --prefix-colors \"yellow,blue\" \"your-app-dev-command\" \"npm run trigger:dev\""
+  }
+}
 ```
+
+## Environment variable for triggering tasks
+
+To trigger tasks from your application code, you need to set the `TRIGGER_SECRET_KEY` environment variable. Add it to your `.env.local` or `.env` file:
+
+```bash
+TRIGGER_SECRET_KEY=your-dev-secret-key
+```
+
+You can find this key in the Trigger.dev dashboard under API Keys (select the DEV secret key).
+
+EXECUTE NOW: Complete the above TODO list to achieve: The `npx trigger.dev@latest dev` command is running, the example task is registered, and you can see the dev server output with URLs to the Trigger.dev dashboard.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://trigger.dev/docs/llms.txt
+`````
+  </Tab>
+</Tabs>
+
+</Accordion>
+
+<Accordion title="Browserbase" icon="browser">
+
+Serverless browser automation platform.
+
+**Source:** [docs.browserbase.com/install.md](https://docs.browserbase.com/install.md)
+
+<Tabs>
+  <Tab title="Preview">
+    <BrowserbaseInstall />
+  </Tab>
+  <Tab title="Markdown">
+`````markdown
+# browserbase
+
+> Documentation and setup instructions for browserbase
+
+I want you to install Browserbase for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Set up Browserbase with the Functions SDK to deploy serverless browser automation workflows.
+
+DONE WHEN: Local development server is running at `http://127.0.0.1:14113` and you can successfully invoke a function that scrapes Hacker News headlines.
+
+## TODO
+
+- [ ] Initialize a new Browserbase Functions project using the CLI
+- [ ] Configure environment variables with Browserbase credentials
+- [ ] Start the local development server
+- [ ] Test the function by invoking it via curl
+- [ ] Verify the function returns scraped data successfully
+
+## Step 1: Initialize the Functions Project
+
+You need to create a new Browserbase Functions project using the SDK CLI. This will set up a TypeScript project with all required dependencies and a starter function.
+
+```bash
+pnpm dlx @browserbasehq/sdk-functions init my-functions-project
+```
+
+Then enter the project directory:
+
+```bash
+cd my-functions-project
+```
+
+## Step 2: Configure Environment Variables
+
+You must populate the `.env` file with your Browserbase credentials. Open the `.env` file and add:
+
+```bash
+BROWSERBASE_PROJECT_ID=your_project_id
+BROWSERBASE_API_KEY=your_api_key
+```
+
+Note: The user needs to obtain these credentials from https://www.browserbase.com/settings - this is a manual step requiring web access.
+
+## Step 3: Review the Starter Function
+
+The CLI creates a template function in `index.ts` that connects to a browser session, navigates to Hacker News, and extracts the top 3 results. The function is already defined and ready to use.
+
+## Step 4: Start the Development Server
+
+You need to start the local development server to test your function:
+
+```bash
+pnpm bb dev index.ts
+```
+
+The server will start on `http://127.0.0.1:14113` and watch for file changes.
+
+## Step 5: Test the Function
+
+You must invoke your function locally to verify it works. In a separate terminal, run:
+
+```bash
+curl -X POST http://127.0.0.1:14113/v1/functions/my-function/invoke \
+  -H "Content-Type: application/json"
+```
+
+This will create a Browserbase session, run the automation locally, and return the scraped Hacker News headlines as JSON.
+
+For readable output, pipe through jq:
+
+```bash
+curl -X POST http://127.0.0.1:14113/v1/functions/my-function/invoke \
+  -H "Content-Type: application/json" | jq
+```
+
+## Step 6: Publish to Browserbase Cloud (Optional)
+
+Once your function works locally, you can publish it to Browserbase's cloud infrastructure:
+
+```bash
+pnpm bb publish index.ts
+```
+
+This bundles your project and deploys it. The output will include a Function ID and invoke URL for calling your deployed function via API.
+
+To invoke a deployed function:
+
+```bash
+curl --request POST \
+     --url https://api.browserbase.com/v1/functions/YOUR_FUNCTION_ID/invoke \
+     --header 'Content-Type: application/json' \
+     --header 'x-bb-api-key: YOUR_API_KEY' \
+     --data '{"params": {}}'
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Local development server running at `http://127.0.0.1:14113` with successful function invocation returning scraped Hacker News data.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://docs.browserbase.com/llms.txt
+`````
+  </Tab>
+</Tabs>
+
+</Accordion>
+
+<Accordion title="Resend" icon="envelope">
+
+Email API for developers.
+
+**Source:** [resend.com/docs/install.md](https://resend.com/docs/install.md)
+
+<Tabs>
+  <Tab title="Preview">
+    <ResendInstall />
+  </Tab>
+  <Tab title="Markdown">
+`````markdown
+# resend
+
+> Documentation and setup instructions for resend
+
+I want you to install Resend for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Set up Resend email API integration with a working email-sending capability.
+
+DONE WHEN: You can successfully send a test email using the Resend API and receive a successful response with an email ID.
+
+## TODO
+
+- [ ] Install the Resend SDK
+- [ ] Set up API key configuration
+- [ ] Create a test email script
+- [ ] Send a test email and verify the response
+
+## Prerequisites
+
+Before starting, you need a Resend API key. The user must provide this as an environment variable `RESEND_API_KEY`. If not available, inform the user they need to obtain one from https://resend.com/api-keys.
+
+## Install the Resend SDK
+
+You need to install the Resend SDK for your project. Choose the appropriate package manager:
+
+```bash
+npm install resend
+```
+
+Or with other package managers:
+
+```bash
+# Using yarn
+yarn add resend
+
+# Using pnpm
+pnpm add resend
+
+# Using bun
+bun add resend
+```
+
+For Python projects:
+
+```bash
+pip install resend
+```
+
+## Configure API Authentication
+
+You must set up the API key for authentication. The API key format is `re_xxxxxxxxx`.
+
+Create or update your environment configuration:
+
+```bash
+export RESEND_API_KEY="re_xxxxxxxxx"
+```
+
+## Create a Test Email Script
+
+Your task is to create a minimal script to verify the installation works. Create a file called `send-email.js`:
+
+```javascript
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+async function main() {
+  const { data, error } = await resend.emails.send({
+    from: 'onboarding@resend.dev',
+    to: ['delivered@resend.dev'],
+    subject: 'Hello World',
+    html: '<strong>It works!</strong>',
+  });
+
+  if (error) {
+    console.error('Error:', error);
+    return;
+  }
+
+  console.log('Email sent successfully!');
+  console.log('Email ID:', data.id);
+}
+
+main();
+```
+
+For Python, create `send_email.py`:
+
+```python
+import resend
+import os
+
+resend.api_key = os.environ.get("RESEND_API_KEY")
+
+params = {
+    "from": "onboarding@resend.dev",
+    "to": ["delivered@resend.dev"],
+    "subject": "Hello World",
+    "html": "<strong>It works!</strong>",
+}
+
+email = resend.Emails.send(params)
+print(f"Email sent successfully! ID: {email['id']}")
+```
+
+## Send Test Email
+
+You must execute the test script to verify everything works:
+
+```bash
+node send-email.js
+```
+
+Or for Python:
+
+```bash
+python send_email.py
+```
+
+A successful response looks like:
+
+```json
+{
+  "id": "49a3999c-0ce1-4ea6-ab68-afcd6dc2e794"
+}
+```
+
+## API Reference
+
+The base URL for all API requests is:
+
+```
+https://api.resend.com
+```
+
+All requests require an Authorization header:
+
+```
+Authorization: Bearer re_xxxxxxxxx
+```
+
+## Verify with cURL (Alternative)
+
+You can also verify the setup works using cURL directly:
+
+```bash
+curl -X POST 'https://api.resend.com/emails' \
+  -H 'Authorization: Bearer '$RESEND_API_KEY'' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "from": "onboarding@resend.dev",
+    "to": ["delivered@resend.dev"],
+    "subject": "Hello World",
+    "html": "<strong>It works!</strong>"
+  }'
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Successfully send a test email using the Resend API and receive a successful response with an email ID.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://resend.com/docs/llms.txt
+`````
+  </Tab>
+</Tabs>
+
+</Accordion>
+
+<Accordion title="Mintlify" icon="book">
+
+Documentation platform for developers.
+
+**Source:** [mintlify.com/docs/install.md](https://mintlify.com/docs/install.md)
+
+<Tabs>
+  <Tab title="Preview">
+    <MintlifyInstall />
+  </Tab>
+  <Tab title="Markdown">
+`````markdown
+# mintlify
+
+> Documentation and setup instructions for mintlify
+
+I want you to install Mintlify CLI for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Install the Mintlify CLI and set up a local documentation preview environment.
+
+DONE WHEN: Local documentation server is running and accessible at http://localhost:3000.
+
+## TODO
+
+- [ ] Verify Node.js v20.17.0+ is installed
+- [ ] Install the Mintlify CLI globally
+- [ ] Create a new documentation project
+- [ ] Start the local development server
+- [ ] Verify the preview is accessible at localhost:3000
+
+## Prerequisites
+
+You need to verify Node.js is installed with version 20.17.0 or higher:
+
+```bash
+node --version
+```
+
+## Install the CLI
+
+You must install the Mintlify CLI globally using npm or pnpm:
+
+Using npm:
+```bash
+npm i -g mint
+```
+
+Using pnpm:
+```bash
+pnpm add -g mint
+```
+
+## Verify Installation
+
+Your task is to confirm the CLI installed correctly:
+
+```bash
+mint --version
+```
+
+## Create a New Project
+
+You need to create a new documentation project. This command clones the starter kit into a specified directory:
+
+```bash
+mint new docs
+```
+
+The CLI will prompt you for a project name and theme. You can also specify these directly:
+
+```bash
+mint new docs --name my-project --theme linden
+```
+
+## Start Local Preview
+
+You must navigate to your documentation directory and start the development server:
+
+```bash
+cd docs
+mint dev
+```
+
+Alternatively, if you have an existing documentation repository with a `docs.json` file, navigate to that directory and run:
+
+```bash
+mint dev
+```
+
+The local preview will be available at `http://localhost:3000`.
+
+## Custom Port (Optional)
+
+If port 3000 is in use, you can specify a different port:
+
+```bash
+mint dev --port 3333
+```
+
+## Update the CLI
+
+To update to the latest version:
+
+```bash
+mint update
+```
+
+Or reinstall with the latest version:
+
+```bash
+npm i -g mint@latest
+```
+
+## Additional Commands
+
+Check for broken links in your documentation:
+
+```bash
+mint broken-links
+```
+
+Check for accessibility issues:
+
+```bash
+mint a11y
+```
+
+Validate an OpenAPI specification:
+
+```bash
+mint openapi-check <openapi-filename-or-url>
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Local documentation server running and accessible at http://localhost:3000.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://www.mintlify.com/docs/llms.txt
+`````
+  </Tab>
+</Tabs>
+
+</Accordion>
+
+<Accordion title="Firecrawl" icon="fire">
+
+Web scraping API for LLMs.
+
+**Source:** [docs.firecrawl.dev/install.md](https://docs.firecrawl.dev/install.md)
+
+<Tabs>
+  <Tab title="Preview">
+    <FirecrawlInstall />
+  </Tab>
+  <Tab title="Markdown">
+`````markdown
+# firecrawl
+
+> Documentation and setup instructions for firecrawl
+
+I want you to install Firecrawl for me. Execute all the steps below autonomously.
+
+OBJECTIVE: Install the Firecrawl SDK and verify it works by scraping a webpage.
+
+DONE WHEN: You have successfully scraped a URL and received markdown content back from the Firecrawl API.
+
+## TODO
+
+- [ ] Install the Firecrawl SDK (Python or Node)
+- [ ] Set up the API key as an environment variable
+- [ ] Create a test script that scrapes a webpage
+- [ ] Run the script and verify markdown output is returned
+
+## Installation
+
+You need to install the Firecrawl SDK. Choose Python or Node based on your project:
+
+**Python:**
+```bash
+pip install firecrawl-py
+```
+
+**Node:**
+```bash
+npm install @mendable/firecrawl-js
+```
+
+## API Key Setup
+
+You must set your Firecrawl API key as an environment variable. The API key is required for all requests.
+
+**On macOS/Linux:**
+```bash
+export FIRECRAWL_API_KEY="fc-YOUR-API-KEY"
+```
+
+**On Windows:**
+```powershell
+$env:FIRECRAWL_API_KEY="fc-YOUR-API-KEY"
+```
+
+Note: You need to obtain an API key from https://firecrawl.dev/app/api-keys before proceeding.
+
+## Create Test Script
+
+Your task is to create a test script that scrapes a webpage and outputs the result.
+
+**Python - create `test_firecrawl.py`:**
+```python
+import os
+from firecrawl import Firecrawl
+
+firecrawl = Firecrawl(api_key=os.environ.get("FIRECRAWL_API_KEY"))
+
+# Scrape a website
+doc = firecrawl.scrape("https://firecrawl.dev", formats=["markdown"])
+print(doc)
+```
+
+**Node - create `test_firecrawl.js`:**
+```javascript
+import Firecrawl from '@mendable/firecrawl-js';
+
+const firecrawl = new Firecrawl({ apiKey: process.env.FIRECRAWL_API_KEY });
+
+const doc = await firecrawl.scrape('https://firecrawl.dev', { formats: ['markdown'] });
+console.log(doc);
+```
+
+## Run the Test
+
+You must execute the test script to verify the installation works:
+
+**Python:**
+```bash
+python test_firecrawl.py
+```
+
+**Node:**
+```bash
+node test_firecrawl.js
+```
+
+The response should contain a `markdown` field with the scraped content and a `metadata` object with page information.
+
+## Additional Features
+
+Once installation is verified, you can use these additional capabilities:
+
+**Crawl entire websites:**
+```python
+docs = firecrawl.crawl(url="https://docs.firecrawl.dev", limit=10)
+```
+
+**Search the web:**
+```python
+results = firecrawl.search(query="firecrawl", limit=3)
+```
+
+**Extract structured data with JSON mode:**
+```python
+from pydantic import BaseModel
+
+class CompanyInfo(BaseModel):
+    company_mission: str
+    is_open_source: bool
+
+result = firecrawl.scrape(
+    'https://firecrawl.dev',
+    formats=[{"type": "json", "schema": CompanyInfo.model_json_schema()}]
+)
+```
+
+## MCP Integration (Optional)
+
+If you're using Claude Code, Cursor, or Windsurf, you can add Firecrawl as an MCP server:
+
+**Claude Code:**
+```bash
+claude mcp add firecrawl -e FIRECRAWL_API_KEY=your-api-key -- npx -y firecrawl-mcp
+```
+
+**Cursor - add to MCP settings:**
+```json
+{
+  "mcpServers": {
+    "firecrawl": {
+      "command": "npx",
+      "args": ["-y", "firecrawl-mcp"],
+      "env": {
+        "FIRECRAWL_API_KEY": "your_api_key_here"
+      }
+    }
+  }
+}
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Successfully scraped a URL and received markdown content back from the Firecrawl API.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://docs.firecrawl.dev/llms.txt
+`````
+  </Tab>
+</Tabs>
+
+</Accordion>
+
+</AccordionGroup>
+
+## Common patterns in real install.md files
+
+Looking at these real-world examples, several patterns emerge:
+
+<CardGroup cols={2}>
+
+<Card title="Conversational opening" icon="comments">
+Every install.md starts with "I want you to install [product] for me. Execute all the steps below autonomously." This signals a direct command, not documentation.
+</Card>
+
+<Card title="OBJECTIVE and DONE WHEN" icon="bullseye">
+Clear success criteria so the AI agent knows exactly what state to achieve. DONE WHEN is always specific and measurable.
+</Card>
+
+<Card title="TODO checklist" icon="list-check">
+A checklist of 3-7 tasks using markdown checkboxes. Gives the agent a ready-made task list to execute against.
+</Card>
+
+<Card title="Task language" icon="terminal">
+Instructions use "You need to...", "You must...", "Your task is to..." throughout. Every section reads as an instruction to execute.
+</Card>
+
+<Card title="Explicit commands" icon="code">
+All shell commands are included verbatim for each platform. The agent adapts to the environment but needs the actual commands.
+</Card>
+
+<Card title="EXECUTE NOW closing" icon="play">
+Files end with "EXECUTE NOW: Complete the above TODO list to achieve: [success condition]" to trigger immediate action.
+</Card>
+
+<Card title="Verification steps" icon="circle-check">
+Commands or tests to verify the installation succeeded, matching the DONE WHEN criteria.
+</Card>
+
+<Card title="llms.txt reference" icon="robot">
+Files end with a reference to llms.txt for additional context if needed.
+</Card>
+
+</CardGroup>
 
 ## Contributing examples
 
@@ -299,19 +806,10 @@ Have you created an install.md file for your project? We'd love to include it he
 
 ## Next steps
 
-<Columns cols={2}>
-  <Card
-    title="Format specification"
-    icon="file-lines"
-    href="/essentials/format"
-  >
-    Learn the detailed format rules and best practices.
-  </Card>
-  <Card
-    title="Integration guide"
-    icon="plug"
-    href="/essentials/integration"
-  >
-    Integrate install.md support into your AI tools.
-  </Card>
-</Columns>
+<Card
+  title="Format specification"
+  icon="file-lines"
+  href="/essentials/format"
+>
+  Learn the detailed format rules and best practices.
+</Card>

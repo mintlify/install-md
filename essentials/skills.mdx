@@ -1,0 +1,136 @@
+---
+title: "Skills for Agents"
+description: "Copy-paste skills to generate install.md files in Claude Code, Cursor, and Windsurf"
+---
+
+import SkillContent from "/snippets/skill-content.md";
+
+Add these skills to your AI coding tool to generate install.md files from any documentation. Each skill teaches the AI how to transform human-oriented docs into task-oriented installation instructions.
+
+## Quick Setup
+
+<Tabs>
+
+<Tab title="Claude Code">
+
+Create a skill directory and file:
+
+```bash
+mkdir -p ~/.claude/skills/install-md-generator
+```
+
+Then create `~/.claude/skills/install-md-generator/SKILL.md` with the frontmatter below, followed by the [skill content](#skill-content).
+
+```markdown
+---
+name: install-md-generator
+description: Generate install.md files from documentation URLs or content. Use when the user asks to create an install.md, convert docs to install.md format, or generate installation instructions for AI agents.
+---
+
+# install.md Generator
+... (paste skill content below)
+```
+
+**Usage:** Claude Code will automatically invoke this skill when you ask it to generate an install.md file.
+
+```
+Generate an install.md from https://docs.stripe.com/stripe-cli
+```
+
+</Tab>
+
+<Tab title="Cursor">
+
+Create a rule file in your project or globally:
+
+```bash
+mkdir -p .cursor/rules
+```
+
+Then create `.cursor/rules/install-md-generator.mdc` with the frontmatter below, followed by the [skill content](#skill-content).
+
+```markdown
+---
+description: "Generate install.md files from documentation. Use when asked to create install.md, convert docs to agent-executable format, or generate AI installation instructions."
+globs: ["**/install.md", "**/INSTALL.md"]
+---
+
+# install.md Generator
+... (paste skill content below)
+```
+
+**Usage:** Cursor will apply this rule when you work with install.md files or ask to generate one.
+
+```
+@install-md-generator Create an install.md from https://docs.stripe.com/stripe-cli
+```
+
+</Tab>
+
+<Tab title="Windsurf">
+
+Create a workflow file:
+
+```bash
+mkdir -p .windsurf/workflows
+```
+
+Then create `.windsurf/workflows/install-md-generator.md` with the [skill content](#skill-content) (no frontmatter needed).
+
+**Usage:** Invoke the workflow with a slash command.
+
+```
+/install-md-generator https://docs.stripe.com/stripe-cli
+```
+
+</Tab>
+
+</Tabs>
+
+## Skill Content
+
+Copy this content into your skill file after the appropriate frontmatter for your tool:
+
+<Accordion title="Full skill content" defaultOpen>
+
+<SkillContent />
+
+</Accordion>
+
+## What the skill does
+
+When you provide documentation (either a URL or pasted content), the skill:
+
+1. **Analyzes** the documentation to find the core installation workflow
+2. **Identifies** the success condition (what proves installation worked)
+3. **Filters** out GUI-only steps, troubleshooting, and optional features
+4. **Transforms** passive documentation into active task language
+5. **Generates** a complete install.md following the specification
+
+## Global vs Project Skills
+
+| Location | Scope | Best for |
+|----------|-------|----------|
+| `~/.claude/skills/` | All projects | Personal productivity skills |
+| `.claude/skills/` | This project | Team-shared skills (commit to git) |
+| `~/.cursor/rules/` | All projects | Personal Cursor rules |
+| `.cursor/rules/` | This project | Project-specific rules |
+| `.windsurf/workflows/` | This project | Project workflows |
+
+For the install.md generator, we recommend installing it **globally** so it's available across all your projects.
+
+## Customizing the Skill
+
+You can customize the skill for your specific needs:
+
+- **Add company-specific patterns**: Include your organization's standard tooling
+- **Modify success criteria**: Adjust what "done" means for your context
+- **Add domain knowledge**: Include common packages or configurations you use
+
+<Card
+  title="Format specification"
+  icon="file-lines"
+  href="/essentials/format"
+>
+  Learn the detailed install.md format rules the skill follows.
+</Card>

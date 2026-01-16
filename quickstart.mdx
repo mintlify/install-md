@@ -5,237 +5,181 @@ description: "Create your first install.md file in minutes"
 
 ## What you'll build
 
-In this guide, you'll create an install.md file for a hypothetical CLI tool called "myapp". By the end, you'll understand the basic structure and how to write clear installation instructions.
+You'll create an install.md file for a hypothetical CLI tool called "myapp". Each step shows you what to add to your file.
 
-## Step 1: Start with the basics
+## Step 1: Title and description
 
-Create a new file called `install.md` and add the title and description:
-
-```markdown
-# MyApp
-
-> MyApp is a command-line tool for managing your tasks and projects.
-```
-
-The title (H1) should be the name of your software, and the blockquote should briefly describe what it does.
-
-<Tip>Keep the description under 200 characters. It should give users enough context to decide if they want to install.</Tip>
-
-## Step 2: Write installation instructions
-
-Add clear, sequential instructions below the description:
+Create `install.md` with the product name and a brief description:
 
 ```markdown
-# MyApp
+# myapp
 
 > MyApp is a command-line tool for managing your tasks and projects.
 
-Install myapp for me.
-
-Detect my operating system and CPU architecture, then download the
-appropriate binary from GitHub releases (username/myapp).
-
-Extract the downloaded archive to ~/.local/bin and make the binary
-executable.
-
-If ~/.local/bin is not in my PATH, add it to my shell configuration
-file (.bashrc, .zshrc, or equivalent).
-
-Verify the installation by running: myapp --version
+I want you to install MyApp for me. Execute all the steps below autonomously.
 ```
 
-<Note>Notice how the instructions describe _what_ to do, not _how_ to do it with specific shell commands. The AI agent will figure out the implementation details.</Note>
+## Step 2: Success criteria
 
-## Step 3: Add platform-specific guidance
-
-Help the AI agent handle different platforms:
+Add OBJECTIVE and DONE WHEN so the agent knows when it's finished:
 
 ```markdown
-# MyApp
+OBJECTIVE: Install the MyApp CLI and verify it works.
+
+DONE WHEN: Running `myapp --version` outputs the version number.
+```
+
+<Tip>DONE WHEN should be specific and verifiable.</Tip>
+
+## Step 3: TODO checklist
+
+Add a checklist of tasks for the agent to complete:
+
+```markdown
+## TODO
+
+- [ ] Download the appropriate binary for my OS and architecture
+- [ ] Make executable and install to /usr/local/bin
+- [ ] Verify installation with myapp --version
+```
+
+## Step 4: Detailed instructions
+
+Expand each TODO item into sections with commands. Use directive language—"You need to", "You must"—to make clear these are instructions for the agent:
+
+```markdown
+## Download the binary
+
+You need to detect the operating system and download the appropriate binary:
+
+**macOS:**
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwin-arm64 -o myapp
+
+**Linux:**
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
+
+## Install the binary
+
+You must make the binary executable and move it to a location in your PATH:
+
+chmod +x myapp
+sudo mv myapp /usr/local/bin/
+
+## Verify installation
+
+You must confirm the installation succeeded:
+
+myapp --version
+```
+
+## Step 5: Closing directive
+
+End with EXECUTE NOW to trigger execution:
+
+```markdown
+EXECUTE NOW: Complete the above TODO list to achieve: Running `myapp --version` outputs the version number.
+```
+
+Optionally reference an llms.txt file for additional context:
+
+```markdown
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://example.com/llms.txt
+```
+
+## Complete install.md
+
+Here's everything together:
+
+`````markdown
+# myapp
 
 > MyApp is a command-line tool for managing your tasks and projects.
 
-Install myapp for me.
+I want you to install MyApp for me. Execute all the steps below autonomously.
 
-Detect my operating system and CPU architecture:
-- For Linux: Use the x86_64, aarch64, or armv7 binary
-- For macOS: Use the x86_64 binary for Intel, aarch64 for Apple Silicon
-- For Windows: Use the x86_64.exe binary
+OBJECTIVE: Install the MyApp CLI and verify it works.
 
-Download the appropriate binary from GitHub releases (username/myapp).
+DONE WHEN: Running `myapp --version` outputs the version number.
 
-Extract the archive to an appropriate location:
-- Linux/macOS: Extract to ~/.local/bin
-- Windows: Extract to %LOCALAPPDATA%\Programs\myapp
+## TODO
 
-Make the binary executable (Linux/macOS only).
+- [ ] Download the appropriate binary for my OS and architecture
+- [ ] Make executable and install to /usr/local/bin
+- [ ] Verify installation with myapp --version
 
-Add the installation directory to my PATH if it's not already there:
-- Linux/macOS: Update shell config (.bashrc, .zshrc, fish config.fish, etc.)
-- Windows: Update system PATH environment variable
+## Download the binary
 
-Verify the installation by running: myapp --version
+You need to detect the operating system and download the appropriate binary:
+
+**macOS:**
+```bash
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-darwin-arm64 -o myapp
 ```
 
-## Step 4: Test with an AI agent
+**Linux:**
+```bash
+curl -fsSL https://github.com/example/myapp/releases/latest/download/myapp-linux-amd64 -o myapp
+```
 
-Test your install.md file by asking an AI agent to execute it:
+## Install the binary
 
-1. Copy the content of your install.md file
+You must make the binary executable and move it to a location in your PATH:
+
+```bash
+chmod +x myapp
+sudo mv myapp /usr/local/bin/
+```
+
+## Verify installation
+
+You must confirm the installation succeeded:
+
+```bash
+myapp --version
+```
+
+EXECUTE NOW: Complete the above TODO list to achieve: Running `myapp --version` outputs the version number.
+
+---
+
+> If you think the above is not enough to accomplish the task, you can find navigation and other pages relevant to this product by using the llms.txt file at: https://example.com/llms.txt
+`````
+
+## Test it
+
+1. Copy the install.md content above
 2. Paste it into Claude Code, Cursor, or another AI coding assistant
-3. Ask: "Please execute these installation instructions"
-4. Review what the agent plans to do before confirming
+3. Watch the agent execute each step
+4. Iterate until it works reliably
 
-<Warning>Always review installation instructions before executing them, even when testing!</Warning>
+<Warning>Always review what the agent plans to do before confirming execution.</Warning>
 
-## Step 5: Publish your install.md
+## Publish
 
-Place your install.md file at the root of your project:
+**Mintlify users:** install.md is generated automatically at `yourdocs.com/install.md`.
+
+**Everyone else:** Host your `install.md` at a predictable URL:
 
 ```
-your-project/
-├── install.md
-├── README.md
-├── src/
-└── ...
+https://your-domain.com/install.md
+https://docs.your-domain.com/install.md
 ```
 
-And make it available at `https://your-domain.com/install.md`
+Or from a GitHub repo:
 
-<Tip>Consider also adding it to your GitHub repository so users can access it via `https://raw.githubusercontent.com/username/repo/main/install.md`</Tip>
-
-## Complete example
-
-Here's a complete, real-world style install.md file for PostHog integration:
-
-```markdown
-# PostHog
-
-> PostHog is an open-source product analytics platform that helps you
-> understand user behavior.
-
-Install PostHog into my project.
-
-First, detect my project type by examining the repository:
-- Look for package.json to identify JavaScript/TypeScript projects
-- Check for framework-specific files (next.config.js, vite.config.ts, etc.)
-- Identify if this is React, Next.js, Vue, Nuxt, or another framework
-- Note whether the project uses TypeScript
-
-Install the PostHog SDK using the project's detected package manager:
-- For npm: npm install posthog-js
-- For yarn: yarn add posthog-js
-- For pnpm: pnpm add posthog-js
-- For bun: bun add posthog-js
-(posthog-js works for Next.js, React, and Vue projects)
-
-For Next.js projects specifically:
-- Determine if using App Router (app/ directory) or Pages Router (pages/ directory)
-- App Router: Look for app/layout.tsx or app/layout.js
-- Pages Router: Look for pages/_app.tsx or pages/_app.js
-
-Identify files that need modification:
-- Check for existing provider files (providers.tsx, providers.js)
-- Look for component directories that might contain provider components
-- For React apps: Find src/App.tsx or src/index.tsx
-- Create new provider files only if no suitable existing file exists
-
-Add PostHog initialization code:
-- Import PostHog at the top of the identified file
-- Initialize PostHog client with configuration from environment variables
-- For React: Create or modify PostHogProvider component if needed
-- For Next.js App Router: Add PostHog provider to layout component
-- Follow the project's existing code style, import patterns, and formatting
-
-Add environment variables:
-- Create or update .env.local with NEXT_PUBLIC_POSTHOG_KEY and NEXT_PUBLIC_POSTHOG_HOST
-- Use placeholder values or prompt for actual keys
-- Add .env.local to .gitignore if not already present
-
-Verify the integration:
-- Check that PostHog initializes without errors in the browser console
-- Ensure no TypeScript errors are present if using TypeScript
-
-Optional enhancements:
-- Add user identification for authenticated users
-- Set up custom event tracking for key user actions
-- Enable session replay if desired
-- Configure feature flags integration
-```
-
-## Common patterns
-
-### SDK/Library integration
-
-For integrating analytics, monitoring, or other SDKs:
-
-```markdown
-Detect my project framework and install the appropriate SDK package.
-Identify existing initialization files (providers, app entry points, config files).
-Add initialization code following the project's existing patterns.
-Configure with environment variables for API keys and settings.
-```
-
-### Framework-specific setup
-
-When different frameworks need different approaches:
-
-```markdown
-Detect the framework by examining the project structure:
-- Next.js: Check for app/ or pages/ directory
-- React: Look for src/App.tsx or src/index.tsx
-- Vue: Look for src/main.ts or app.vue
-
-Install the SDK and modify the appropriate framework entry point.
-Follow framework-specific patterns for providers or plugins.
-```
-
-### Code modification patterns
-
-When files need to be modified in place:
-
-```markdown
-Identify files that need modification by looking for existing patterns
-(providers, hooks, components, etc.)
-
-Preserve the existing code style, formatting, and import patterns.
-Add new functionality alongside existing code rather than replacing it.
-Create new files only if no appropriate existing file can be modified.
-```
-
-### Multi-file integration
-
-When setup requires coordinating changes across files:
-
-```markdown
-First identify all files that need modification:
-- Configuration files for API keys
-- Provider files for initialization
-- Type definition files if using TypeScript
-- Environment variable files
-
-Make changes in order, ensuring each file references the others correctly
-using the project's existing import patterns.
+```bash
+curl -fsSL https://raw.githubusercontent.com/your-org/your-repo/main/install.md | claude
 ```
 
 ## Next steps
 
 <CardGroup cols={2}>
-
-<Card title="Format specification" icon="file-lines" href="/essentials/format">
-  Learn the detailed format rules and best practices.
-</Card>
-
-<Card title="See more examples" icon="code" href="/essentials/examples">
-  Browse real-world install.md files.
-</Card>
-
-<Card title="Integration guide" icon="plug" href="/essentials/integration">
-  Add install.md support to your tools.
-</Card>
-
-<Card title="Contribute" icon="github" href="https://github.com/mintlify/install-md">
-  Help improve the install.md specification.
-</Card>
-
+  <Card title="Format specification" icon="file-lines" href="/essentials/format">
+    Detailed breakdown of each required section.
+  </Card>
+  <Card title="See real examples" icon="code" href="/essentials/examples">
+    Production install.md files from Trigger.dev, Browserbase, Resend, and more.
+  </Card>
 </CardGroup>
